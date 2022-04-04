@@ -75,7 +75,7 @@ or event-based push mechanisms.
 ### :left_speech_bubble:   Further Description of this Repository :left_speech_bubble: 
 
 This repository is designed to support TC members' work on a
-formal specification that describes _OpenC2 Actuaor Profile for
+formal specification that describes _OpenC2 Actuator Profile for
 Posture Attribute Collection_. This GitHub repository supports
 development of the content and change tracking for the _PAC AP_
 as new working draft level revisions are created and the
