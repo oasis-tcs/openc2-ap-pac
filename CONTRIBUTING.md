@@ -11,5 +11,5 @@ Persons who are not TC members are invited to open issues and provide comments u
 
 **Cloning and forking**. May users clone and fork this repository?  Yes. Just as versioned content maintained in any OASIS TC's <a href="https://tools.oasis-open.org/version-control/browse/">SVN/Subversion repository</a> may be checked out to a remote SVN repository and used by anyone, this GitHub repository may be forked or cloned for use by any party.
 
-Please see the <a href="https://github.com/oasis-tcs/openc2-jadn-im/blob/master/README.md">README</a> for general description of this repository, and the <a href="https://github.com/oasis-tcs/openc2-jadn-im/blob/master/LICENSE.md">LICENSE</a> file for licensing.
+Please see the <a href="https://github.com/oasis-tcs/openc2-ap-pac/blob/master/README.md">README</a> for general description of this repository, and the <a href="https://github.com/oasis-tcs/openc2-ap-pac/blob/master/LICENSE.md">LICENSE</a> file for licensing.
 
