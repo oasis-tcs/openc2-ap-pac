@@ -334,35 +334,190 @@ Example:
 -------
 
 # 2 OpenC2 Language Binding
-text.
+
+*This section is normative.*
+
+This section defines the set of Actions, Targets, Arguments, and
+Actuator Specifiers that are meaningful in the context of PAC and
+the appropriate status codes, status texts, and other properties
+of a Response message. In addition, this section defines the
+Commands allowed by this Actuator profile. Section 2 is organized
+into three major subsections; [Command
+Components](#21-openc2-command-components), [Response
+Components](#22-openc2-response-components), and
+[Commands](#23-openc2-commands).
+
+Extensions to the Language Specification are defined in
+accordance with Version 1.0 of the [OpenC2 Language
+Specification](#openc2-lang-v1.0), Section 3.1.4, where:
+
+1.  The unique name of the PAC schema is: `oasis-open.org/openc2/v1.0/ap-pac`
+
+2.  The namespace identifier (NSID) referring to the PAC schema is: `pac`
+
+3.  The conformance requirements for the OpenC2 Posture Attribute
+    Collection Actuator profile are defined and included in this
+    document.
 
 ## 2.1 OpenC2 Command Components
-text.
+
+The components of an OpenC2 Command include Actions, Targets,
+Actuators and associated Arguments and Specifiers. Appropriate
+aggregation of the components will define a Command-body that is
+meaningful in the context of PAC.
+
+This specification identifies the applicable components of an
+OpenC2 Command. The components of an OpenC2 Command include:
+
+-   **Action:** A subset of the Actions defined in Version 1.0 of the
+    [OpenC2 Language Specification](#openc2-lang-v1.0) that are
+    meaningful in the context of a posture attribute collection.
+
+    -   This profile SHALL NOT define Actions that are external
+        to Version 1.0 of the [OpenC2 Language
+        Specification](#openc2-lang-v1.0).
+
+    -   This profile MAY augment the definition of the Actions in
+        the context of PAC.
+
+    -   This profile SHALL NOT define Actions in a manner that is
+        inconsistent with Version 1.0 of the [OpenC2 Language
+        Specification](#openc2-lang-v1.0).
+
+-   **Target:** A subset of the Targets and Target-Specifiers defined
+    in Version 1.0 of the [OpenC2 Language
+    Specification](#openc2-lang-v1.0) that are meaningful in the
+    context of PAC and two Targets and their Specifiers that are
+    defined in this specification.
+
+-   **Arguments:** A subset of the Arguments defined in Version 1.0
+    of the [OpenC2 Language Specification](#openc2-lang-v1.0) and
+    a set of Arguments defined in this specification.
+
+-   **Actuator:** A set of Actuator Specifiers defined in this
+    specification that are meaningful in the context of PAC.
 
 ### 2.1.1 Actions
-text.
+
+Table 2.1.1-1 presents the Actions defined in Version 1.0 of the
+OpenC2 Language Specification, which are meaningful in the
+context of PAC. The particular Action/Target pairs that are valid
+combinations are presented in [Section 2.3](#23-openc2-commands).
+
+#### Table 2.1.1-1 Common Actions Applicable to PAC
+
 
 ### 2.1.2 Targets
-text.
+
+Table 2.1.2-1 lists the Targets defined in Version 1.0 of the
+OpenC2 Language Specification that are applicable to PAC. Table
+2.1.2-2 extends the list of common Targets and includes
+additional Targets unique to PAC. Targets that are defined in
+this profile (see Table 2.1.2-2) are referenced with the `pac`
+namespace identifier.
+
+#### Table 2.1.2-1 Common Targets Applicable to PAC
+
+
+#### Table 2.1.2-2 Targets Unique to PAC
+
+Usage Requirements: TBD
 
 ### 2.1.3 Command Arguments
-text.
+
+Arguments provide additional precision to a Command by including
+information such as how, when, or where a Command is to be
+executed. Table 2.1.3-1 lists the Command Arguments defined in
+Version 1.0 of the OpenC2 Language Specification as they relate
+to PAC functionality. Table 2.1.3-2 lists the Command Arguments
+that are defined in this profile. Command Arguments that are
+defined in this profile (see Table 2.1.3-2) are referenced with
+the pac namespace identifier.
+
+
+#### Table 2.1.3-1 Common Command Arguments Applicable to PAC
+
+#### Table 2.1.3-2 Command Arguments Unique to PAC
+
+
+Usage Requirements: TBD
+
+#### 2.1.3.1 Data Type Definitions
+
+**Type:** [add type, if necessary]
 
 ### 2.1.4 Actuators
-text.
+
+An Actuator is the entity that provides the functionality and
+performs the Action. The Actuator executes the Action on the
+Target. In the context of this profile, the Actuator is the
+posture attribute collection. Table 2.1.4-1 lists the PAC
+Actuator. 
+
+#### Table 2.1.4-1 PAC Actuator
+
 
 ### 2.1.5 Actuator Specifiers
-text.
+
+The presence of one or more Specifiers further refine which
+Actuator(s) shall execute the Action. Table 2.1.5-1 lists the
+Specifiers that are applicable to the PAC Actuator . Appendix E
+provides sample Commands with the use of Specifiers. The Actuator
+Specifiers defined in this profile are referenced with the `pac`
+namespace identifier.
+
+#### Table 2.1.5-1 PAC Actuator Specifiers
+
+
 
 
 ## 2.2 OpenC2 Response Components
-text.
+
+Response messages originate from the Actuator as a result of a
+Command. Responses associated with required Actions MUST be
+implemented. Implementations that include optional Actions MUST
+implement the RESPONSE associated with the implemented Action.
+Additional details regarding Command and associated Response are
+captured in [Section 2.3](#23-openc2-commands). Examples are
+provided in [Appendix
+F](#appendix-f-example-appendix-with-subsections).
+
 
 ### 2.2.1 Common Response Results
-text.
+
+Table 2.2.1-1 lists the Response Results properties defined in
+Version 1.0 of the OpenC2 Language Specification that are
+applicable to PAC. 
+
+#### Table 2.2.1-1 Common Response Results Applicable to PAC
+
+
+#### Table 2.2.1-2 Response Results Unique to PAC 
+
+The list of common Response properties is extended to include the
+additional Response properties defined in this section and
+referenced with the `pac` namespace. 
+
+#### 2.2.1.1 Data Type Definitions
+
+---- OS-Version Table Goes Here -----
+
+Usage Requirements: TBD
+
+---- OS-Arch Table Goes Here -----
+
+Usage Requirements: TBD
+
+
 
 ### 2.2.2 Response Status Codes
-text.
+
+Table 2.2.2-1 lists the Response Status Codes defined in Version
+1.0 of the OpenC2 Language Specification that are applicable to
+PAC.
+
+#### Table 2.2.2-1 Response Status Codes
+
 
 
 ## 2.3 OpenC2 Commands
