@@ -318,7 +318,7 @@ this document:
 
 Example:
 
-```
+``` json
 {
   "action": "deny",
   "target": {
