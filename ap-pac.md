@@ -773,7 +773,7 @@ the upstream command.
 Assumption 3 alters an OpenC2 Language Specification (LS)
 default: [*Section
 3.3.1.4*](https://docs.oasis-open.org/openc2/oc2ls/v1.0/cs02/oc2ls-v1.0-cs02.html#3314-command-arguments)
-of the LS states that if the command argument `response\_requested`
+of the LS states that if the command argument `response_requested`
 is not explicitly specified by a Producer, then the Consumer
 should send a complete response. In the case of an OC responding
 to an upstream Producer, this default is overridden.
