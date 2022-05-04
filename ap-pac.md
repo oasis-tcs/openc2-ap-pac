@@ -570,7 +570,7 @@ target` Commands, but cannot implement the `scan target`:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 status code.
--   SHOULD respond with 'Rule not implemented' in the status
+-   SHOULD respond with "Rule not implemented" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -593,7 +593,7 @@ Command:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 Response code.
--   SHOULD respond with 'Target type not supported' in the status
+-   SHOULD respond with "Target type not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -618,7 +618,7 @@ Command:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 Response code.
--   SHOULD respond with 'Target type not supported' in the status
+-   SHOULD respond with "Target type not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -643,7 +643,7 @@ Command:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 Response code.
--   SHOULD respond with 'Target type not supported' in the status
+-   SHOULD respond with "Target type not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -666,7 +666,7 @@ not supported by the Actuator, PAC Consumers:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 status code.
--   SHOULD respond with 'Argument not supported' in the status
+-   SHOULD respond with "Argument not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -716,7 +716,7 @@ Command:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 Response code.
--   SHOULD respond with 'Target type not supported' in the status
+-   SHOULD respond with "Target type not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -765,7 +765,7 @@ not supported by the Actuator, PAC Consumers:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 status code.
--   SHOULD respond with 'Argument not supported' in the status
+-   SHOULD respond with "Argument not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
@@ -791,14 +791,14 @@ Command:
 
     -   MUST NOT respond with the 200 status code.
     -   SHOULD respond with the 501 status code.
-    -   SHOULD respond with 'Command not supported' in the status
+    -   SHOULD respond with "Command not supported" in the status
         text.
     -   MAY respond with the 500 status code.
 
 -   but cannot access the file specified in the file Target:
 
     -   MUST respond with the 500 status code.
-    -   SHOULD respond with 'Cannot access file' in the status
+    -   SHOULD respond with "Cannot access file" in the status
         text.
 
 
@@ -843,7 +843,7 @@ not supported by the Actuator, PAC Consumers:
 
 -   MUST NOT respond with the 200 status code.
 -   SHOULD respond with the 501 status code.
--   SHOULD respond with 'Argument not supported' in the status
+-   SHOULD respond with "Argument not supported" in the status
     text.
 -   MAY respond with the 500 status code.
 
