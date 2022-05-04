@@ -753,8 +753,8 @@ NOT include Arguments other than the one identified in Table
 
 OpenC2 Producers that send the `update file` Command:
 
--   MAY populate the arguments field with the response\_requested
-    Argument. Valid values for response\_requested for `update
+-   MAY populate the arguments field with the `response_requested`
+    Argument. Valid values for `response_requested` for `update
     file` are "complete", "ack", and "none".
 -   MUST NOT include other Command Arguments.
 -   MUST populate the name Specifier in the Target.
@@ -804,7 +804,76 @@ Command:
 
 ### 2.3.5 Copy
 
-#### 2.3.5.1 'copy file'
+The `file` Target as defined in Version 1.0 of the [OpenC2
+Language Specification](#openc2-lang-v1.0) is the only valid
+Target type for the copy Action. The associated Specifiers, and
+Arguments are summarized in [Section 2.3.5.1](#update-file).
+Sample Commands are presented in [Appendix
+F](#appendix-f-example-appendix-with-subsections).
+
+#### 2.3.5.1 `copy file`
+
+The `copy file` Command is used to copy files such as
+configuration files, rule sets, etc. Implementation of the copy
+file Command is OPTIONAL. OpenC2 Consumers that choose to
+implement the `copy file` Command MUST include all steps that are
+required for the copy file procedure, such as parse a device and
+extract the file based on its name, or/and path, or/and hash
+code. The atomic steps that take place are implementation
+specific.
+
+Table 2.3-2, Command Arguments Matrix, presents the valid
+Arguments for the `copy file` Command. OpenC2 Producers and
+Consumers that choose to implement the `copy file` Command MUST
+NOT include Arguments other than the one identified in Table
+2.3-2.
+
+OpenC2 Producers that send the `copy file` Command:
+
+-   MAY populate the arguments field with the
+    `response_requested` Argument. Valid values for
+    `response_requested` for `copy file` are "complete", "ack",
+    and "none".
+-   MUST NOT include other Command Arguments.
+-   MUST populate the name Specifier in the Target.
+-   SHOULD populate the path Specifier in the Target.
+
+Upon receipt of an `copy file` Command with an Argument that is
+not supported by the Actuator, PAC Consumers:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 status code.
+-   SHOULD respond with 'Argument not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive the `copy file` Command:
+
+-   upon successful parsing and initiating the processing of the
+    'copy file' Command, OpenC2 Consumers MAY respond with
+    Response status code 102.
+
+-   upon completion of all the steps necessary to complete the
+    copy of the file, OpenC2 Consumers SHOULD respond with
+    Response status code 200.
+
+-   but cannot parse or process the `copy file` Command:
+
+    -   MUST NOT respond with the 200 status code.
+    -   SHOULD respond with the 400 status code.
+    -   MAY respond with the 500 status code.
+
+-   but do not support the `copy file` Command:
+
+    -   MUST NOT respond with the 200 status code.
+    -   SHOULD respond with the 501 status code.
+    -   SHOULD respond with "Command not supported" in the status text.
+    -   MAY respond with the 500 status code.
+
+-   but cannot access the file specified in the `file` Target:
+
+    -   MUST respond with the 500 status code.
+    -   SHOULD respond with "Cannot access file" in the status text.
 
 
 
