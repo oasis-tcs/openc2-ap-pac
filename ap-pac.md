@@ -162,32 +162,75 @@ section in an Appendix below.
 
 # 1 Introduction
 
-<!-- All text is normative unless otherwise labeled -->
+*The content in this section is non-normative, except where it is
+marked normative.*
 
+**Note:** This Actuator profile is consistent with Version 1.0 of
+the OpenC2 Language Specification
+[\[OpenC2-Lang-v1.0\]](#openc2-lang-v1.0).
 
-Here is a customized command line which will generate HTML from
-this markdown file (named openc2-file.md):
+OpenC2 is a suite of specifications that enables command and
+control of cyber defense systems and components. OpenC2 typically
+uses a request-response paradigm where a Command is encoded by a
+Producer (managing application) and transferred to a Consumer
+(managed device or virtualized function) using a secure transfer
+protocol, and the Consumer acts on the request and responds with
+status and any other requested information.
 
-pandoc -f gfm -t html openc2-file.md -c
-styles/markdown-styles-v1.7.3.css --toc --toc-depth=5 -s -o
-openc2-file.html --metadata title="Title of Specification Version
-1.0"
+This specification defines an Actuator profile for **Posture
+Attribute Collection (PAC)**. In particular, the specification
+comprises a set of Actions, Targets and Target Specifiers,
+Command Arguments, and Actuator Specifiers that integrates PAC
+functionality with the OpenC2 Command set. Through this Command
+set, cyber security orchestrators may gain visibility into and
+provide control over PAC in a manner that is independent of the
+instance of the PAC function.
 
-OASIS staff are currently using pandoc 2.6 from
-https://github.com/jgm/pandoc/releases/tag/2.6.
+All components, devices, and systems that provide PAC
+functionality MUST implement the identified OpenC2 Actions,
+Targets, Specifiers, and Arguments as specified in the
+Conformance section of this specification.
 
-This also requires the presence of a .css file containing the
-HTML styles (like styles/markdown-styles-v1.7.3.css).
+Though cyber defense components, devices, systems and/or
+instances may implement multiple Actuator profiles, a particular
+OpenC2 Message may reference at most a single Actuator profile.
+The scope of this document is limited to PAC.
 
-Note this command generates a Table of Contents (TOC) in HTML
-which is located at the top of the HTML document, and which
-requires additional editing in order to be published in the
-expected OASIS style. This editing will be handled by OASIS staff
-during publication. A TC may use other ways to generate HTML from
-markdown, which may generate a TOC in a different way.
+The rest of the specification is organized as follows:
+
+The remaining of Section 1 includes information about the IPR
+policy, terminology used, and document conventions pertinent to
+this Actuator profile specification.
+
+[Section 2](#2-section-heading) (normative) binds this particular
+profile to Version 1.0 of the OpenC2 Language Specification
+[\[OpenC2-Lang-v1.0\]](#openc2-lang-v1.0). It enumerates the
+components of the Language Specification that are meaningful in
+the context of PAC and defines components that are applicable to
+this distinct profile. In addition, Section 2 defines the
+Commands (i.e., the Action/Target pairs, arguments, and
+associated specifiers) that are permitted in the context of PAC.
+
+[Section 3](#3-conformance) (normative) presents definitive
+criteria for conformance so that cyber security stakeholders can
+be assured that their products, instances and/or integrations are
+compatible with this profile (OpenC2 Actuator Profile for Posture
+Attribute Collection Version 1.0).
+
+[Appendix E](#appendix-e-orchestrator-consumer-operating-model)
+(non-normative) describes the operating model for an
+"Orchestrator Consumer", an OpenC2 element that can receive
+commands from a higher-level ("upstream") Producer and then
+command lower-level ("downstream") Consumers to implement those
+commands.
+
+[Appendix F](#appendix-f-example-appendix-with-subsections) (non-normative)
+provides multiple examples of Commands and associated Responses
+(JSON serialization).
 
 ## 1.1 Changes from earlier versions
 
+This is the initial version of this specifciation.
 <!-- Optional section -->
 
 ## 1.2 Glossary
