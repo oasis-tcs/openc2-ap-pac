@@ -656,7 +656,42 @@ Command:
 
 ### 2.3.2 Query
 
+The valid Target types and Arguments for the query Action are
+summarized in Table 2.3-1 Command Matrix and Table 2.3-2 Command
+Arguments Matrix. Sample Commands are presented in [Appendix
+F](#appendix-f-example-appendix-with-subsections).
+
+Upon receipt of `query [target]` Command with an Argument that is
+not supported by the Actuator, PAC Consumers:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 status code.
+-   SHOULD respond with 'Argument not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support `query [target]`
+Command:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful parsing and execution of the Command.
+
+
 #### 2.3.2.1 'query features'
+
+Implementation of the 'query features' Command is REQUIRED and MUST be
+implemented in accordance with Section 4.1, Implementation of 'query
+features' Command, of Version 1.0 of the [OpenC2 Language
+Specification](#openc2-lang-v1.0).
+
+#### 2.3.2.2 ‘Query pac:os\_version’*
+
+The `query pac:os_version` Command provides a mechanism to collect the
+information such as name, version and other operating system related
+data according to the provided target specifiers. Implementation of the
+`query pac:os_version` Command is OPTIONAL. Products that choose to
+implement the `query pac:os_version` Command MUST implement the
+pac:os\_version Target type described in Table 2.1.2-2.
 
 ### 2.3.3 Cancel
 
