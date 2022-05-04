@@ -1295,9 +1295,79 @@ retrievals from the upstream Producer:
 
 # Appendix F. Example Appendix with subsections
 
-## F.1 Subsection title
+## F.1 Query and Return SBOM
 
-### F.1.1 Sub-subsection
+These examples illustrate a request from an upstream Producer for
+SBOM information from downstream managed components, and the
+response to that request.
+
+### F.1.1 Query SBOM
+
+``` json
+{
+	"action": "query",
+	"target": {
+		"pac": ["sbom"]
+	}
+}
+```
+
+### F.2.1 Return SBOM
+
+``` json
+{
+	"status": 200,
+	"results": {
+		"pac": {
+			"sbom": {
+				"TODO": "Fill in data here??"
+			}
+		}
+	}
+}
+```
+
+## F.1 Query and Return Operating System (OS) Version
+
+These examples illustrate a request from an upstream Producer for
+OS version information from downstream managed components, and
+the response to that request.
+
+### F.1.1 Query OS Version
+
+``` json
+{
+	"action": "query",
+	"target": {
+		"pac": ["os_version"]
+	}
+}
+```
+
+### F.2.1 Return OS Version
+
+``` json
+{
+	"status": 200,
+	"results": {
+		"pac": {
+			"os_version": {
+				"name": "macOS",
+				"version": "12.3.1",
+				"major": 12,
+				"minor": 3,
+				"patch": 1,
+				"build": "21E258",
+				"platform": "darwin",
+				"platform_like": "darwin",
+				"codename": "",
+				"arch": "x86_64"
+			}
+		}
+	}
+}
+```
+
 
 -------
 
