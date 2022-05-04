@@ -1013,17 +1013,21 @@ validity.
 
 ## A.1 Normative References
 
-The following documents are referenced in such a way that some or all of their content constitutes requirements of this document.
+The following documents are referenced in such a way that some or
+all of their content constitutes requirements of this document.
 
-(Reference sources:
-For references to IETF RFCs, use the approved citation formats at:  
+(Reference sources: For references to IETF RFCs, use the approved
+citation formats at:  
 https://docs.oasis-open.org/templates/ietf-rfc-list/ietf-rfc-list.html.  
-For references to W3C Recommendations, use the approved citation formats at:  
+For references to W3C Recommendations, use the approved citation
+formats at:  
 https://docs.oasis-open.org/templates/w3c-recommendations-list/w3c-recommendations-list.html.  
 Remove this note before submitting for publication.)
 
 ###### [OpenC2-Lang-v1.0]
-_Open Command and Control (OpenC2) Language Specification Version 1.0_. Edited by Jason Romano and Duncan Sparrell. Latest stage: https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html
+_Open Command and Control (OpenC2) Language Specification Version
+1.0_. Edited by Jason Romano and Duncan Sparrell. Latest stage:
+https://docs.oasis-open.org/openc2/oc2ls/v1.0/oc2ls-v1.0.html
 <!--
 ###### [OpenC2-HTTPS-v1.0]
 _Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by David Lemire. Latest stage: http://docs.oasis-open.org/openc2/open-impl-https/v1.0/open-impl-https-v1.0.html
@@ -1031,14 +1035,20 @@ _Specification for Transfer of OpenC2 Messages via HTTPS Version 1.0_. Edited by
 _Open Command and Control (OpenC2) Profile for Stateless Packet Filtering Version 1.0_. Edited by Joe Brule, Duncan Sparrell, and Alex Everett. Latest stage: http://docs.oasis-open.org/openc2/oc2slpf/v1.0/oc2slpf-v1.0.html
 -->
 ###### [RFC2119]
-Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, http://www.rfc-editor.org/info/rfc2119.
+Bradner, S., "Key words for use in RFCs to Indicate Requirement
+Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997,
+http://www.rfc-editor.org/info/rfc2119.
 ###### [RFC8174]
-Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017, http://www.rfc-editor.org/info/rfc8174.
+Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key
+Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017,
+http://www.rfc-editor.org/info/rfc8174.
 
 ## A.2 Informative References
 
 ###### [RFC3552]
-Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552, July 2003, https://www.rfc-editor.org/info/rfc3552.
+Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on
+Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552,
+July 2003, https://www.rfc-editor.org/info/rfc3552.
 
 -------
 
