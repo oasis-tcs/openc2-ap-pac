@@ -679,25 +679,56 @@ Command:
 
 #### 2.3.2.1 'query features'
 
-Implementation of the 'query features' Command is REQUIRED and MUST be
-implemented in accordance with Section 4.1, Implementation of 'query
-features' Command, of Version 1.0 of the [OpenC2 Language
-Specification](#openc2-lang-v1.0).
+Implementation of the 'query features' Command is REQUIRED and
+MUST be implemented in accordance with Section 4.1,
+Implementation of 'query features' Command, of Version 1.0 of the
+[OpenC2 Language Specification](#openc2-lang-v1.0).
 
 #### 2.3.2.2 ‘Query pac:os\_version’*
 
-The `query pac:os_version` Command provides a mechanism to collect the
-information such as name, version and other operating system related
-data according to the provided target specifiers. Implementation of the
-`query pac:os_version` Command is OPTIONAL. Products that choose to
-implement the `query pac:os_version` Command MUST implement the
-pac:os\_version Target type described in Table 2.1.2-2.
+The `query pac:os_version` Command provides a mechanism to
+collect the information such as name, version and other operating
+system related data according to the provided target specifiers.
+Implementation of the `query pac:os_version` Command is OPTIONAL.
+Products that choose to implement the `query pac:os_version`
+Command MUST implement the pac:os\_version Target type described
+in Table 2.1.2-2.
 
 ### 2.3.3 Cancel
 
-#### 2.3.3.1 'cancel command'
+The `command` Target as defined in Version 1.0 of the [OpenC2
+Language Specification](#openc2-lang-v1.0) is the only valid
+Target type for the cancel Action. The associated Specifiers, and
+Arguments are summarized in [Section 2.3.5.1](#update-file).
+Sample Commands are presented in [Appendix
+F](#appendix-f-example-appendix-with-subsections).
+
+#### 2.3.3.1 `cancel command`
+
+The `cancel command` Command is OPTIONAL for Openc2 Producers
+implementing the PAC profile. The `cancel command` Command is
+OPTIONAL for Openc2 Consumers implementing the PAC profile.
+
+The Command invalidates a previously issued Action.
+
+Products that receive but do not implement the `cancel command`
+Command:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 Response code.
+-   SHOULD respond with 'Target type not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support `cancel command`
+Command:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful parsing and execution of the Command.
 
 ### 2.3.4 Update
+
+
 
 #### 2.3.4.1 'update file'
 
