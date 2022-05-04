@@ -728,9 +728,79 @@ Command:
 
 ### 2.3.4 Update
 
+The `file` Target as defined in Version 1.0 of the [OpenC2
+Language Specification](#openc2-lang-v1.0) is the only valid
+Target type for the update Action. The associated Specifiers, and
+Arguments are summarized in [Section 2.3.4.1](#update-file).
+Sample Commands are presented in [Appendix
+F](#appendix-f-example-appendix-with-subsections).
 
+#### 2.3.4.1 `update file`
 
-#### 2.3.4.1 'update file'
+The `update file` Command is used to replace or update files such
+as configuration files, rule sets, etc. Implementation of the
+update file Command is OPTIONAL. OpenC2 Consumers that choose to
+implement the `update file` Command MUST include all steps that
+are required for the update file procedure such as retrieving the
+file(s), install the file(s), restart/ reboot the device etc. The
+atomic steps that take place are implementation specific.
+
+Table 2.3-2, Command Arguments Matrix, presents the valid
+Arguments for the `update file` Command. OpenC2 Producers and
+Consumers that choose to implement the `update file` Command MUST
+NOT include Arguments other than the one identified in Table
+2.3-2.
+
+OpenC2 Producers that send the `update file` Command:
+
+-   MAY populate the arguments field with the response\_requested
+    Argument. Valid values for response\_requested for `update
+    file` are "complete", "ack", and "none".
+-   MUST NOT include other Command Arguments.
+-   MUST populate the name Specifier in the Target.
+-   SHOULD populate the path Specifier in the Target.
+
+Upon receipt of an `update file` Command with an Argument that is
+not supported by the Actuator, PAC Consumers:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 status code.
+-   SHOULD respond with 'Argument not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support the `update file`
+Command:
+
+-   upon successful parsing and initiating the processing of the
+    'update file' Command, OpenC2 Consumers MAY respond with
+    Response status code 102.
+
+-   upon completion of all the steps necessary to complete the
+    update and the Actuator commences operations functioning with
+    the new file, OpenC2 Consumers SHOULD respond with Response
+    status code 200.
+
+-   but cannot parse or process the `update file` Command:
+
+    -   MUST NOT respond with the 200 status code.
+    -   SHOULD respond with the 400 status code.
+    -   MAY respond with the 500 status code.
+
+-   but do not support the `update file` Command:
+
+    -   MUST NOT respond with the 200 status code.
+    -   SHOULD respond with the 501 status code.
+    -   SHOULD respond with 'Command not supported' in the status
+        text.
+    -   MAY respond with the 500 status code.
+
+-   but cannot access the file specified in the file Target:
+
+    -   MUST respond with the 500 status code.
+    -   SHOULD respond with 'Cannot access file' in the status
+        text.
+
 
 ### 2.3.5 Copy
 
