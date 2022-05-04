@@ -531,7 +531,159 @@ Darren | Anstman | Big Networks
 
 # Appendix E. Orchestrator Consumer Operating Model
 
+This appendix explains the operating model for an Orchestrator
+Consumer (OC). Figure E-1 shows the relevant operating context.
 
+![Figure E-1: Orchestrator Consumers Context](images/Orchestrator-Consumer.drawio.png)
+
+The diagram illustrates the interactions of the OC with the
+upstream Producer that commands it and the downstream Consumers
+that it commands. Any particular downstream Consumer may support
+any mixture of OpenC2 actuator profiles (APs) and other
+non-OpenC2-based interfaces for interacting with the OC. Tracking
+the available downstream Consumers and their capabilities is a
+local matter for the OC.
+
+## E.1. Terminology
+
+-   **Upstream:** refers to interfaces and external entities
+    through which the OC receives OpenC2 commands and via which
+    it sends responses.
+-   **Downstream:** refers to interfaces and external entities
+    through which the OC sends commands via OpenC2 and/or other
+    mechanisms and via which it receives responses and data.
+-   **OpenC2-based Interfaces:** refers to any interface, inbound
+    or outbound, where the OC exchanges information via formats
+    and protocols defined by OpenC2 specifications (i.e., OpenC2
+    Language Specification, Actuator Profiles, and Transfer
+    Specifications).
+-   **Other mechanisms:** refers to any interface, inbound or
+    outbound, where the OC exchanges information using formats
+    and protocols not defined by any OpenC2 specification.
+
+
+## E.2 Assumptions
+
+1.  All commands received via the OC’s upstream interface:
+
+    1.  Are governed by OpenC2 specifications;
+
+    2.  Are defined by an Actuator Profile not used with any of
+        the downstream Consumers (in the figure above this is the
+        Posture Attribute Collection (PAC) AP);
+
+    3.  Provide enough information for the OC to select a
+        mechanism to interact with downstream Consumers;
+
+    4.  Provide enough information for the OC to determine which
+        downstream Consumers to command; the number of downstream
+        Consumers can range from a single Consumer to very large
+        quantities.
+
+2.  Interactions between the OC and its downstream Consumers may
+    use any mixture of OpenC2-based and other mechanisms; the
+    mechanisms used are opaque to the upstream Producer.
+
+3.  Responses via the upstream interface will typically only
+    provide status information regarding the execution of the
+    referenced command, but may contain other requested content
+    such as a pointer to stored information, or the actual
+    information retrieved, based on specifics of the command
+    received from upstream.
+
+Assumption 1.ii is a simplifying assumption: when only the OC
+supports the AP defining commands received from upstream, there
+is no ambiguity regarding what element executes the command. If
+both the OC and downstream Consumers support the AP or LS feature
+defining the command received from upstream, the OC must
+implement suitable decision logic to determine whether to execute
+the command locally or trigger downstream commands derived from
+the upstream command.
+
+Assumption 3 alters an OpenC2 Language Specification (LS)
+default: [*Section
+3.3.1.4*](https://docs.oasis-open.org/openc2/oc2ls/v1.0/cs02/oc2ls-v1.0-cs02.html#3314-command-arguments)
+of the LS states that if the command argument `response\_requested`
+is not explicitly specified by a Producer, then the Consumer
+should send a complete response. In the case of an OC responding
+to an upstream Producer, this default is overridden.
+
+## E.3 Operations
+
+The OC performs the following operations in executing a command
+received from the upstream Producer:
+
+1.  Receive command and validate it against the appropriate AP.
+
+2.  Interpret the received command contents to determine:
+
+    1.  The appropriate mechanism (e.g., OpenC2 AP / command,
+        other mechanism) to use with downstream Consumers to
+        accomplish the intent of the received command. This
+        guides the creation of a derived command to send
+        downstream;
+
+    2.  What set of downstream Consumers should receive the
+        derived command;
+
+    3.  How to process responses from the downstream Consumers;
+
+    4.  What information must be collected to generate a response
+        to the upstream Producer.
+
+3.  Generate and send commands (as identified in 2.a) to the
+    identified set of downstream Consumers (as identified in
+    2.b).
+
+4.  Process received downstream Consumer responses (as determined
+    in 2.c) and accumulate information to generate the response
+    to the upstream Producer (as determined in 2.d).
+
+5.  When appropriate, generate and send the response to the
+    upstream Producer.
+
+
+## E.4 Notional Example
+
+The OC receives a command for software bill of material (SBOM)
+retrievals from the upstream Producer:
+
+1.  Evaluate the command and determine that it is a valid command
+    under the PAC AP.
+
+2.  Interpret the command:
+
+    1.  Identify that the command directs SBOM retrieval, so an
+        OpenC2 command conforming to the SBOM AP will be sent to
+        downstream consumers
+
+    2.  The actuator specifiers in the received command identify
+        a set of downstream consumers by a network address block.
+        The OC uses its consumer registration information store
+        to identify the specific downstream Consumers
+        corresponding to the specified network addresses (for
+        this example: 10 downstream Consumers).
+
+    3.  The received command directs that retrieved SBOMs be
+        stored in a data store.
+
+    4.  The received command indicates a requested response
+        containing a success percentage, and a pointer to the
+        stored set of SBOMs from the specified downstream
+        consumers.
+
+3.  The OC generates and sends commands in accordance with the
+    SBOM AP to retrieve SBOMs from the 10 downstream Consumers
+    identified in 2.b.
+
+4.  The OC receives responses containing SBOMs from 8 of the 10
+    downstream Consumers, and stores those SBOMs in the
+    identified data store. The OC receives error responses from
+    the other 2 downstream Consumers.
+
+5.  The OC transmits a response to the upstream Producer
+    indicating an 80% success rate and providing a pointer to the
+    set of 8 SBOMs in the data store.
 
 
 -------
