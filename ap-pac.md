@@ -522,13 +522,137 @@ PAC.
 
 ## 2.3 OpenC2 Commands
 
+An OpenC2 Command consists of an Action/Target pair and
+associated Specifiers and Arguments. This section enumerates the
+Commands permitted by this Actuator profile and presents the
+associated Response behavior. Sections 2.3.1 through 2.3.5
+provide details applicable to each Command, also as influenced by
+the Arguments. Table 2.3-1 defines the Commands that are valid in
+the context of the PAC profile. An Action (the top row in Table
+2.3-1) paired with a Target (the first column in Table 2.3-1)
+defines a valid Command.
+ 
+#### Table 2.3-1. Command Matrix
+
+Table 2.3-2 defines the Command Arguments that are allowed for a
+particular Command by the PAC Actuator profile. A Command (the
+top row in Table 2.3-2) paired with an Argument (the first column
+in Table 2.3-2) defines an allowable combination.
+ 
+#### Table 2.3-2. Command Arguments Matrix
+
+
+Hereafter the specification provides details applicable to each
+Command, also as influenced by the Arguments.
+
 ### 2.3.1 Scan
+
+Table 2.3-2, Command Arguments Matrix, summarizes the Command
+Arguments that apply to all Commands consisting of the scan
+Action and a valid Target type.
+
+Upon receipt of a `scan target` Command with an Argument that
+is not supported by the Actuator, PAC Consumers:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 status code.
+-   SHOULD respond with "Argument not supported" in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive `scan target` Commands:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful  parsing of the `scan target` Command and subsequent  implementation of the corresponding rule.
+
+OpenC2 Consumers that receive and successfully parse `scan
+target` Commands, but cannot implement the `scan target`:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 status code.
+-   SHOULD respond with 'Rule not implemented' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+The valid Target types, associated Specifiers, and Arguments are
+summarized in the following subsections. Sample Commands are
+presented in [Appendix F](#appendix-f-example-appendix-with-subsections).
+
 
 #### 2.3.1.1 'Scan Device'
 
+The `scan device` Command is OPTIONAL for Openc2 Producers
+implementing the PAC profile. The `scan device` Command is
+OPTIONAL for Openc2 Consumers implementing the PAC profile.
+
+The Command does systematic examination of some aspect of the
+specified device that implemented the PAC profile.
+
+Products that receive but do not implement the `scan device`
+Command:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 Response code.
+-   SHOULD respond with 'Target type not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support `scan device` Command:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful parsing and execution of the Command.
+
+
+
 #### 2.3.1.2 'Scan domain_name'
 
+The `scan domain_name` Command is OPTIONAL for Openc2 Producers
+implementing the PAC profile. The `scan domain_name` Command is
+OPTIONAL for Openc2 Consumers implementing the PAC profile.
+
+The Command does systematic examination of the specified network
+domain name of the devices that implemented the PAC profile.
+
+Products that receive but do not implement the `scan domain_name`
+Command:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 Response code.
+-   SHOULD respond with 'Target type not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support `scan domain_name`
+Command:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful parsing and execution of the Command.
+
+
 #### 2.3.1.3 'Scan mac_addr'
+
+The `scan mac_addr` Command is OPTIONAL for Openc2 Producers
+implementing the PAC profile. The `scan mac_addr` Command is
+OPTIONAL for Openc2 Consumers implementing the PAC profile.
+
+The Command does systematic examination of the specified MAC
+addresses of the devices that implemented the PAC profile.
+
+Products that receive but do not implement the `scan mac_addr`
+Command:
+
+-   MUST NOT respond with the 200 status code.
+-   SHOULD respond with the 501 Response code.
+-   SHOULD respond with 'Target type not supported' in the status
+    text.
+-   MAY respond with the 500 status code.
+
+OpenC2 Consumers that receive and support `scan mac_addr`
+Command:
+
+-   SHOULD respond with the Response status code 200 upon
+    successful parsing and execution of the Command.
+
 
 ### 2.3.2 Query
 
