@@ -333,24 +333,67 @@ Example:
 
 -------
 
-# 2 Section Heading
+# 2 OpenC2 Language Binding
 text.
 
-## 2.1 Level 2 Heading
+## 2.1 OpenC2 Command Components
 text.
 
-### 2.1.1 Level 3 Heading
+### 2.1.1 Actions
 text.
 
-#### 2.1.1.1 Level 4 Heading
+### 2.1.2 Targets
 text.
 
-##### 2.1.1.1.1 Level 5 Heading
-This is the deepest level, because six # gets transformed into a Reference tag.
-
-
-## 2.2 Next Heading
+### 2.1.3 Command Arguments
 text.
+
+### 2.1.4 Actuators
+text.
+
+### 2.1.5 Actuator Specifiers
+text.
+
+
+## 2.2 OpenC2 Response Components
+text.
+
+### 2.2.1 Common Response Results
+text.
+
+### 2.2.2 Response Status Codes
+text.
+
+
+## 2.3 OpenC2 Commands
+
+### 2.3.1 Scan
+
+#### 2.3.1.1 'Scan Device'
+
+#### 2.3.1.2 'Scan domain_name'
+
+#### 2.3.1.3 'Scan mac_addr'
+
+### 2.3.2 Query
+
+#### 2.3.2.1 'query features'
+
+### 2.3.3 Cancel
+
+#### 2.3.3.1 'cancel command'
+
+### 2.3.4 Update
+
+#### 2.3.4.1 'update file'
+
+### 2.3.5 Copy
+
+#### 2.3.5.1 'copy file'
+
+
+
+
 
 -------
 
