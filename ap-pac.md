@@ -648,6 +648,21 @@ PAC.
 
 #### Table 2.2.2-1 Response Status Codes
 
+> _EDITOR'S NOTE: for now simply including all of the status codes from the LS._
+
+**_Type: Status-Code (Enumerated.ID)_**
+
+| ID | Description |
+| ---: | :--- |
+| 102 | **Processing** - an interim Response used to inform the Producer that the Consumer has accepted the Command but has not yet completed it. |
+| 200 | **OK** - the Command has succeeded. |
+| 400 | **Bad Request** - the Consumer cannot process the Command due to something that is perceived to be a Producer error (e.g., malformed Command syntax). |
+| 401 | **Unauthorized** - the Command Message lacks valid authentication credentials for the target resource or authorization has been refused for the submitted credentials. |
+| 403 | **Forbidden** - the Consumer understood the Command but refuses to authorize it. |
+| 404 | **Not Found** - the Consumer has not found anything matching the Command. |
+| 500 | **Internal Error** - the Consumer encountered an unexpected condition that prevented it from performing the Command. |
+| 501 | **Not Implemented** - the Consumer does not support the functionality required to perform the Command. |
+| 503 | **Service Unavailable** - the Consumer is currently unable to perform the Command due to a temporary overloading or maintenance of the Consumer. |
 
 
 ## 2.3 OpenC2 Commands
@@ -668,123 +683,20 @@ Table 2.3-2 defines the Command Arguments that are allowed for a
 particular Command by the PAC Actuator profile. A Command (the
 top row in Table 2.3-2) paired with an Argument (the first column
 in Table 2.3-2) defines an allowable combination.
+
+> _EDITOR'S NOTE: Insert Command Matrix here._
+
+
  
 #### Table 2.3-2. Command Arguments Matrix
+
+> _EDITOR'S NOTE: Insert Command Arguments Matrix here._
 
 
 Hereafter the specification provides details applicable to each
 Command, also as influenced by the Arguments.
 
-### 2.3.1 Scan
-
-Table 2.3-2, Command Arguments Matrix, summarizes the Command
-Arguments that apply to all Commands consisting of the scan
-Action and a valid Target type.
-
-Upon receipt of a `scan target` Command with an Argument that
-is not supported by the Actuator, PAC Consumers:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 status code.
--   SHOULD respond with "Argument not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive `scan target` Commands:
-
--   SHOULD respond with the Response status code 200 upon
-    successful  parsing of the `scan target` Command and subsequent  implementation of the corresponding rule.
-
-OpenC2 Consumers that receive and successfully parse `scan
-target` Commands, but cannot implement the `scan target`:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 status code.
--   SHOULD respond with "Rule not implemented" in the status
-    text.
--   MAY respond with the 500 status code.
-
-The valid Target types, associated Specifiers, and Arguments are
-summarized in the following subsections. Sample Commands are
-presented in [Appendix F](#appendix-f-example-appendix-with-subsections).
-
-
-#### 2.3.1.1 'Scan Device'
-
-The `scan device` Command is OPTIONAL for Openc2 Producers
-implementing the PAC profile. The `scan device` Command is
-OPTIONAL for Openc2 Consumers implementing the PAC profile.
-
-The Command does systematic examination of some aspect of the
-specified device that implemented the PAC profile.
-
-Products that receive but do not implement the `scan device`
-Command:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 Response code.
--   SHOULD respond with "Target type not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive and support `scan device` Command:
-
--   SHOULD respond with the Response status code 200 upon
-    successful parsing and execution of the Command.
-
-
-
-#### 2.3.1.2 'Scan domain_name'
-
-The `scan domain_name` Command is OPTIONAL for Openc2 Producers
-implementing the PAC profile. The `scan domain_name` Command is
-OPTIONAL for Openc2 Consumers implementing the PAC profile.
-
-The Command does systematic examination of the specified network
-domain name of the devices that implemented the PAC profile.
-
-Products that receive but do not implement the `scan domain_name`
-Command:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 Response code.
--   SHOULD respond with "Target type not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive and support `scan domain_name`
-Command:
-
--   SHOULD respond with the Response status code 200 upon
-    successful parsing and execution of the Command.
-
-
-#### 2.3.1.3 'Scan mac_addr'
-
-The `scan mac_addr` Command is OPTIONAL for Openc2 Producers
-implementing the PAC profile. The `scan mac_addr` Command is
-OPTIONAL for Openc2 Consumers implementing the PAC profile.
-
-The Command does systematic examination of the specified MAC
-addresses of the devices that implemented the PAC profile.
-
-Products that receive but do not implement the `scan mac_addr`
-Command:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 Response code.
--   SHOULD respond with "Target type not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive and support `scan mac_addr`
-Command:
-
--   SHOULD respond with the Response status code 200 upon
-    successful parsing and execution of the Command.
-
-
-### 2.3.2 Query
+### 2.3.1 Query
 
 The valid Target types and Arguments for the query Action are
 summarized in Table 2.3-1 Command Matrix and Table 2.3-2 Command
@@ -807,14 +719,14 @@ Command:
     successful parsing and execution of the Command.
 
 
-#### 2.3.2.1 'query features'
+#### 2.3.2.1 query features
 
 Implementation of the 'query features' Command is REQUIRED and
 MUST be implemented in accordance with Section 4.1,
 Implementation of 'query features' Command, of Version 1.0 of the
 [OpenC2 Language Specification](#openc2-lang-v1.0).
 
-#### 2.3.2.2 ‘Query pac:os\_version’*
+#### 2.3.2.2 Query pac:attrs*
 
 The `query pac:os_version` Command provides a mechanism to
 collect the information such as name, version and other operating
@@ -823,190 +735,6 @@ Implementation of the `query pac:os_version` Command is OPTIONAL.
 Products that choose to implement the `query pac:os_version`
 Command MUST implement the pac:os\_version Target type described
 in Table 2.1.2-2.
-
-### 2.3.3 Cancel
-
-The `command` Target as defined in Version 1.0 of the [OpenC2
-Language Specification](#openc2-lang-v1.0) is the only valid
-Target type for the cancel Action. The associated Specifiers, and
-Arguments are summarized in [Section 2.3.5.1](#update-file).
-Sample Commands are presented in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
-
-#### 2.3.3.1 `cancel command`
-
-The `cancel command` Command is OPTIONAL for Openc2 Producers
-implementing the PAC profile. The `cancel command` Command is
-OPTIONAL for Openc2 Consumers implementing the PAC profile.
-
-The Command invalidates a previously issued Action.
-
-Products that receive but do not implement the `cancel command`
-Command:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 Response code.
--   SHOULD respond with "Target type not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive and support `cancel command`
-Command:
-
--   SHOULD respond with the Response status code 200 upon
-    successful parsing and execution of the Command.
-
-### 2.3.4 Update
-
-The `file` Target as defined in Version 1.0 of the [OpenC2
-Language Specification](#openc2-lang-v1.0) is the only valid
-Target type for the update Action. The associated Specifiers, and
-Arguments are summarized in [Section 2.3.4.1](#update-file).
-Sample Commands are presented in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
-
-#### 2.3.4.1 `update file`
-
-The `update file` Command is used to replace or update files such
-as configuration files, rule sets, etc. Implementation of the
-update file Command is OPTIONAL. OpenC2 Consumers that choose to
-implement the `update file` Command MUST include all steps that
-are required for the update file procedure such as retrieving the
-file(s), install the file(s), restart/ reboot the device etc. The
-atomic steps that take place are implementation specific.
-
-Table 2.3-2, Command Arguments Matrix, presents the valid
-Arguments for the `update file` Command. OpenC2 Producers and
-Consumers that choose to implement the `update file` Command MUST
-NOT include Arguments other than the one identified in Table
-2.3-2.
-
-OpenC2 Producers that send the `update file` Command:
-
--   MAY populate the arguments field with the `response_requested`
-    Argument. Valid values for `response_requested` for `update
-    file` are "complete", "ack", and "none".
--   MUST NOT include other Command Arguments.
--   MUST populate the name Specifier in the Target.
--   SHOULD populate the path Specifier in the Target.
-
-Upon receipt of an `update file` Command with an Argument that is
-not supported by the Actuator, PAC Consumers:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 status code.
--   SHOULD respond with "Argument not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive and support the `update file`
-Command:
-
--   upon successful parsing and initiating the processing of the
-    'update file' Command, OpenC2 Consumers MAY respond with
-    Response status code 102.
-
--   upon completion of all the steps necessary to complete the
-    update and the Actuator commences operations functioning with
-    the new file, OpenC2 Consumers SHOULD respond with Response
-    status code 200.
-
--   but cannot parse or process the `update file` Command:
-
-    -   MUST NOT respond with the 200 status code.
-    -   SHOULD respond with the 400 status code.
-    -   MAY respond with the 500 status code.
-
--   but do not support the `update file` Command:
-
-    -   MUST NOT respond with the 200 status code.
-    -   SHOULD respond with the 501 status code.
-    -   SHOULD respond with "Command not supported" in the status
-        text.
-    -   MAY respond with the 500 status code.
-
--   but cannot access the file specified in the file Target:
-
-    -   MUST respond with the 500 status code.
-    -   SHOULD respond with "Cannot access file" in the status
-        text.
-
-
-### 2.3.5 Copy
-
-The `file` Target as defined in Version 1.0 of the [OpenC2
-Language Specification](#openc2-lang-v1.0) is the only valid
-Target type for the copy Action. The associated Specifiers, and
-Arguments are summarized in [Section 2.3.5.1](#update-file).
-Sample Commands are presented in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
-
-#### 2.3.5.1 `copy file`
-
-The `copy file` Command is used to copy files such as
-configuration files, rule sets, etc. Implementation of the copy
-file Command is OPTIONAL. OpenC2 Consumers that choose to
-implement the `copy file` Command MUST include all steps that are
-required for the copy file procedure, such as parse a device and
-extract the file based on its name, or/and path, or/and hash
-code. The atomic steps that take place are implementation
-specific.
-
-Table 2.3-2, Command Arguments Matrix, presents the valid
-Arguments for the `copy file` Command. OpenC2 Producers and
-Consumers that choose to implement the `copy file` Command MUST
-NOT include Arguments other than the one identified in Table
-2.3-2.
-
-OpenC2 Producers that send the `copy file` Command:
-
--   MAY populate the arguments field with the
-    `response_requested` Argument. Valid values for
-    `response_requested` for `copy file` are "complete", "ack",
-    and "none".
--   MUST NOT include other Command Arguments.
--   MUST populate the name Specifier in the Target.
--   SHOULD populate the path Specifier in the Target.
-
-Upon receipt of an `copy file` Command with an Argument that is
-not supported by the Actuator, PAC Consumers:
-
--   MUST NOT respond with the 200 status code.
--   SHOULD respond with the 501 status code.
--   SHOULD respond with "Argument not supported" in the status
-    text.
--   MAY respond with the 500 status code.
-
-OpenC2 Consumers that receive the `copy file` Command:
-
--   upon successful parsing and initiating the processing of the
-    'copy file' Command, OpenC2 Consumers MAY respond with
-    Response status code 102.
-
--   upon completion of all the steps necessary to complete the
-    copy of the file, OpenC2 Consumers SHOULD respond with
-    Response status code 200.
-
--   but cannot parse or process the `copy file` Command:
-
-    -   MUST NOT respond with the 200 status code.
-    -   SHOULD respond with the 400 status code.
-    -   MAY respond with the 500 status code.
-
--   but do not support the `copy file` Command:
-
-    -   MUST NOT respond with the 200 status code.
-    -   SHOULD respond with the 501 status code.
-    -   SHOULD respond with "Command not supported" in the status text.
-    -   MAY respond with the 500 status code.
-
--   but cannot access the file specified in the `file` Target:
-
-    -   MUST respond with the 500 status code.
-    -   SHOULD respond with "Cannot access file" in the status text.
-
-
-
 
 
 -------
