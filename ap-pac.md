@@ -726,7 +726,7 @@ MUST be implemented in accordance with Section 4.1,
 Implementation of 'query features' Command, of Version 1.0 of the
 [OpenC2 Language Specification](#openc2-lang-v1.0).
 
-#### 2.3.2.2 Query pac:attrs*
+#### 2.3.2.2 Query pac:attrs
 
 The `query pac:os_version` Command provides a mechanism to
 collect the information such as name, version and other operating
