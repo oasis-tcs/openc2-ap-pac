@@ -406,6 +406,11 @@ combinations are presented in [Section 2.3](#23-openc2-commands).
 
 #### Table 2.1.1-1 Common Actions Applicable to PAC
 
+**Type: Action (Enumerated)**
+
+| ID | Item      | Description |
+|----|-----------|-------------|
+| 3  | **query** |  Initiate a request for information. |
 
 ### 2.1.2 Targets
 
@@ -418,8 +423,21 @@ namespace identifier.
 
 #### Table 2.1.2-1 Common Targets Applicable to PAC
 
+**Type: Target (Enumerated)**
+
+| ID   | Item         | Description |
+|------|--------------|-------------|
+| 9    | **features** | A set of items used with the query Action to determine an Actuator's capabilities.|
+| 1035 | **pac/**     |             |
+
 
 #### Table 2.1.2-2 Targets Unique to PAC
+
+**Type: AP-Target (Choice)**
+
+| ID | Name      | Type                        | \#    | Description                              |
+|----|-----------|-----------------------------|-------|------------------------------------------|
+| 1  | **attrs** | PostureAttributeName unique | 1..\* | List of posture attribute names to query |
 
 Usage Requirements: TBD
 
@@ -437,7 +455,24 @@ the pac namespace identifier.
 
 #### Table 2.1.3-1 Common Command Arguments Applicable to PAC
 
+**Type: Args (Enumerated)**
+
+| ID | Name | Type | # | Description |
+| ---: | :--- | :--- | ---: | :--- |
+| 1 | **start_time** | Date-Time | 0..1 | The specific date/time to initiate the Command |
+| 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Command |
+| 3 | **duration** | Duration | 0..1 | The length of time for an Command to be in effect |
+| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Command: `none`, `ack`, `status`, `complete`. |
+| 1035 | **pac/**               |             |
+
+
 #### Table 2.1.3-2 Command Arguments Unique to PAC
+
+**Type: AP-Args (Map{1..\*})**
+
+| ID | Name    | Type   | \#   | Description              |
+|----|---------|--------|------|--------------------------|
+| 1  | **foo** | String | 0..1 | Delete from Args if none |
 
 
 Usage Requirements: TBD
@@ -456,6 +491,12 @@ Actuator.
 
 #### Table 2.1.4-1 PAC Actuator
 
+**Type: Actuator (Enumerated)**
+
+| ID   | Item     | Description |
+|------|----------|-------------|
+| 1035 | **pac/** |             |
+
 
 ### 2.1.5 Actuator Specifiers
 
@@ -468,7 +509,11 @@ namespace identifier.
 
 #### Table 2.1.5-1 PAC Actuator Specifiers
 
+**Type: AP-Specifiers (Map)**
 
+| ID | Name    | Type   | \#   | Description                  |
+|----|---------|--------|------|------------------------------|
+| 1  | **foo** | String | 0..1 | Delete from Actuator if none |
 
 
 ## 2.2 OpenC2 Response Components
@@ -491,6 +536,16 @@ applicable to PAC.
 
 #### Table 2.2.1-1 Common Response Results Applicable to PAC
 
+**Type: Results (Enumerated)**
+
+| ID | Name | Type | # | Description |
+| ---: | :--- | :--- | ---: | :--- |
+| 1 | **versions** | Version unique | 0..* | List of OpenC2 language versions supported by this Actuator |
+| 2 | **profiles** | ArrayOf(Nsid) | 0..1 | List of profiles supported by this Actuator |
+| 3 | **pairs** | Action-Targets | 0..1 | List of targets applicable to each supported Action |
+| 4 | **rate_limit** | Number{0..*} | 0..1 | Maximum number of requests per minute supported by design or policy |
+| 1035 | **pac/**       |             |
+
 
 #### Table 2.2.1-2 Response Results Unique to PAC 
 
@@ -498,15 +553,103 @@ The list of common Response properties is extended to include the
 additional Response properties defined in this section and
 referenced with the `pac` namespace. 
 
+**Type: AP-Results (Map{1..\*})**
+
+| ID | Name           | Type       | \# | Description |
+|----|----------------|------------|----|-------------|
+| 1  | **os_version** | OS-Version | 1  |             |
+| 2  | **sbom**       | SBOM       | 1  |             |
+
+
 #### 2.2.1.1 Data Type Definitions
 
----- OS-Version Table Goes Here -----
+**Type: OS-Version (Record)**
+
+| ID | Name              | Type         | \#    | Description                          |
+|----|-------------------|--------------|-------|--------------------------------------|
+| 1  | **name**          | String       | 1     | Distribution or product name         |
+| 2  | **version**       | String       | 1     | Suitable for presentation OS version |
+| 3  | **major**         | Integer      | 0..1  | Major release version                |
+| 4  | **patch**         | Integer      | 0..1  | Patch release                        |
+| 5  | **build**         | String       | 0..1  | Build-specific or variant string     |
+| 6  | **platform**      | String       | 0..1  | OS Platform or ID                    |
+| 7  | **platform_like** | String       | 0..\* | Closely-related platforms            |
+| 8  | **arch**          | OS-Arch      | 0..1  | OS Architecture                      |
+| 9  | **install_date**  | ls:Date-Time | 0..1  | Install date of the OS               |
+
 
 Usage Requirements: TBD
 
----- OS-Arch Table Goes Here -----
+**Type: OS-Arch (Enumerated)**
+
+| ID | Item       | Description |
+|----|------------|-------------|
+| 1  | **32-bit** |             |
+| 2  | **64-bit** |             |
+| 3  | **x86_32** |             |
+| 4  | **x86_64** |             |
+
 
 Usage Requirements: TBD
+
+**Type: SBOM (Choice)**
+
+| ID | Name        | Type          | \# | Description                              |
+|----|-------------|---------------|----|------------------------------------------|
+| 1  | **uri**     | ls:URI        | 1  | Unique identifier or locator of the SBOM |
+| 2  | **summary** | SBOM-Elements | 1  | NTIA Minimumum Elements of an SBOM       |
+| 3  | **content** | SBOM-Content  | 1  | SBOM structured data                     |
+| 4  | **blob**    | SBOM-Blob     | 1  | Uninterpreted SBOM bytes                 |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Elements (Record)**
+
+| ID | Name              | Type         | \#    | Description                                                                          |
+|----|-------------------|--------------|-------|--------------------------------------------------------------------------------------|
+| 1  | **supplier**      | String       | 1..\* | Name of entity that creates, defines, and identifies components                      |
+| 2  | **component**     | String       | 1..\* | Designation(s) assigned to a unit of software defined by the original supplier       |
+| 3  | **version**       | String       | 1     | Identifier used by supplier to specify a change from a previously identified version |
+| 4  | **component_ids** | String       | 0..\* | Other identifiers used to identify a component, or serve as a look-yp key            |
+| 5  | **dependencies**  | String       | 0..\* | Upstream component(s)                                                                |
+| 6  | **author**        | String       | 1     | Name of the entity that creates SBOM data for this component                         |
+| 7  | **timestamp**     | ls:Date-Time | 1     | Record of the date and time of the SBOM data assembly                                |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Content (Choice)**
+
+| ID | Name          | Type   | \# | Description                          |
+|----|---------------|--------|----|--------------------------------------|
+| 1  | **cyclonedx** | String | 1  | Placeholder for CycloneDX data model |
+| 2  | **spdx2**     | String | 1  | Placeholder for SPDX v2.x data model |
+| 3  | **spdx3**     | String | 1  | Placeholder for SPDX v3 data model   |
+
+Usage Requirements: TBD
+
+
+
+
+**Type: SBOM-Blob (Record)**
+
+| ID | Name       | Type                           | \# | Description |
+|----|------------|--------------------------------|----|-------------|
+| 1  | **format** | Enumerated(Enum[SBOM-Content]) | 1  |             |
+| 2  | **data**   | Binary                         | 1  |             |
+
+Usage Requirements: TBD
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
