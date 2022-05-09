@@ -640,19 +640,6 @@ Usage Requirements: TBD
 Usage Requirements: TBD
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 2.2.2 Response Status Codes
 
 Table 2.2.2-1 lists the Response Status Codes defined in Version
