@@ -335,7 +335,10 @@ This is the initial version of this specifciation.
 
 ### 1.2.2 Acronyms and abbreviations
 
-TBSL
+| Term | Explanation |
+| :---: | :--- |
+| PAC | Posture Attribute Collection |
+| RFC | Request For Comment
 
 ### 1.2.3 Document conventions
 
