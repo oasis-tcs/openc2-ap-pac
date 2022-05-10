@@ -436,7 +436,7 @@ OpenC2 Command. The components of an OpenC2 Command include:
 
 -   **Action:** A subset of the Actions defined in Version 1.0 of the
     [OpenC2 Language Specification](#openc2-lang-v1.0) that are
-    meaningful in the context of a posture attribute collection.
+    meaningful in the context of posture attribute collection.
 
     -   This profile SHALL NOT define Actions that are external
         to Version 1.0 of the [OpenC2 Language
