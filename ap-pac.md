@@ -177,6 +177,16 @@ Producer (managing application) and transferred to a Consumer
 protocol, and the Consumer acts on the request and responds with
 status and any other requested information.
 
+Understanding the security posture of components in a network is
+a starting point for automation to update and maintain the
+network's overall security posture. [RFC 7632](#rfc7632) defines
+a set of use cases for endpoint posture assessment, which is
+initiated by "securely collecting and aggregating configuration
+and operational data". This activity is known as posture
+attribute collection. OpenC2 can provide the means to coordinate
+the collection of security posture attributes for subsequent
+evaluation.
+
 This specification defines an Actuator profile for **Posture
 Attribute Collection (PAC)**. In particular, the specification
 comprises a set of Actions, Targets and Target Specifiers,
