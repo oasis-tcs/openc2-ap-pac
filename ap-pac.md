@@ -202,14 +202,15 @@ The remaining of Section 1 includes information about the IPR
 policy, terminology used, and document conventions pertinent to
 this Actuator profile specification.
 
-[Section 2](#2-section-heading) (normative) binds this particular
-profile to Version 1.0 of the OpenC2 Language Specification
-[\[OpenC2-Lang-v1.0\]](#openc2-lang-v1.0). It enumerates the
-components of the Language Specification that are meaningful in
-the context of PAC and defines components that are applicable to
-this distinct profile. In addition, Section 2 defines the
-Commands (i.e., the Action/Target pairs, arguments, and
-associated specifiers) that are permitted in the context of PAC.
+[Section 2](#2-openc2-language-binding) (normative) binds this
+particular profile to Version 1.0 of the OpenC2 Language
+Specification [\[OpenC2-Lang-v1.0\]](#openc2-lang-v1.0). It
+enumerates the components of the Language Specification that are
+meaningful in the context of PAC and defines components that are
+applicable to this distinct profile. In addition, Section 2
+defines the Commands (i.e., the Action/Target pairs, arguments,
+and associated specifiers) that are permitted in the context of
+PAC.
 
 [Section 3](#3-conformance) (normative) presents definitive
 criteria for conformance so that cyber security stakeholders can
