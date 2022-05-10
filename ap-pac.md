@@ -515,7 +515,7 @@ Version 1.0 of the OpenC2 Language Specification as they relate
 to PAC functionality. Table 2.1.3-2 lists the Command Arguments
 that are defined in this profile. Command Arguments that are
 defined in this profile (see Table 2.1.3-2) are referenced with
-the pac namespace identifier.
+the `pac` namespace identifier.
 
 
 #### Table 2.1.3-1 Common Command Arguments Applicable to PAC
