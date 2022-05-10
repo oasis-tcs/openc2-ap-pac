@@ -676,7 +676,13 @@ the Arguments. Table 2.3-1 defines the Commands that are valid in
 the context of the PAC profile. An Action (the top row in Table
 2.3-1) paired with a Target (the first column in Table 2.3-1)
 defines a valid Command.
- 
+
+| | **query**|
+|---:|:---:|
+| **features**| valid |
+| **pac/**  | valid |
+
+
 #### Table 2.3-1. Command Matrix
 
 Table 2.3-2 defines the Command Arguments that are allowed for a
@@ -684,13 +690,13 @@ particular Command by the PAC Actuator profile. A Command (the
 top row in Table 2.3-2) paired with an Argument (the first column
 in Table 2.3-2) defines an allowable combination.
 
-> _EDITOR'S NOTE: Insert Command Matrix here._
-
-
  
 #### Table 2.3-2. Command Arguments Matrix
 
-> _EDITOR'S NOTE: Insert Command Arguments Matrix here._
+| | query features | query pac:attrs |
+| ---: | :---: | :---: |
+| response_requested | 2.3.2.1 | 2.3.2.2 |
+
 
 
 Hereafter the specification provides details applicable to each
