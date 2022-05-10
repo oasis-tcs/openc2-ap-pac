@@ -617,7 +617,7 @@ referenced with the `pac` namespace.
 
 > NOTE: To illustrate response results unique to PAC, os_version
 > and Software Bill of Materials (SBOM) have been chosen. These
-> two use cases well correlate with [RFC 7632](#rfc7632) and
+> two use cases correlate well with [RFC 7632](#rfc7632) and
 > reflect growing community interest in security automation. The
 > purpose of the use cases is to provide examples of how to
 > collect the posture attributes from selected endpoints for
