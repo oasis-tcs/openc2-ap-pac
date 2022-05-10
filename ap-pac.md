@@ -241,7 +241,7 @@ This is the initial version of this specifciation.
 *This section is normative.*
 
 -   **Action**: The task or activity to be performed (e.g.,
-    'deny').
+    'query').
 
 -   **Actuator**: The function performed by the Consumer that
     executes the Command (e.g., 'Posture Attribute Collection').
