@@ -547,11 +547,20 @@ applicable to PAC.
 | 1035 | **pac/** | pac:AP-Results | 0..1 |
 
 
-#### Table 2.2.1-2 Response Results Unique to PAC 
-
 The list of common Response properties is extended to include the
 additional Response properties defined in this section and
 referenced with the `pac` namespace. 
+
+> NOTE: To illustrate response results unique to PAC, os_version
+> and Software Bill of Materials (SBOM) have been chosen. These
+> two use cases well correlate with [RFC 7632](#rfc7632) and
+> reflect growing community interest in security automation. The
+> purpose of the use cases is to provide examples of how to
+> collect the posture attributes from selected endpoints for
+> storing and farther evaluation. The set of response results
+> unique to PAC is expect to shift and expand as this AP matures.
+
+#### Table 2.2.1-2 Response Results Unique to PAC 
 
 **Type: AP-Results (Map{1..\*})**
 
@@ -913,6 +922,11 @@ http://www.rfc-editor.org/info/rfc8174.
 Rescorla, E. and B. Korver, "Guidelines for Writing RFC Text on
 Security Considerations", BCP 72, RFC 3552, DOI 10.17487/RFC3552,
 July 2003, https://www.rfc-editor.org/info/rfc3552.
+
+###### [RFC7632] 
+Waltermire, D. and D. Harrington, "Endpoint Security Posture Assessment: Enterprise Use Cases", RFC 7632, DOI 10.17487/RFC7632, September 2015, <https://www.rfc-editor.org/info/rfc7632>.
+
+
 
 -------
 
