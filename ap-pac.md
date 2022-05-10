@@ -484,11 +484,10 @@ Usage Requirements: TBD
 
 ### 2.1.4 Actuators
 
-An Actuator is the entity that provides the functionality and
-performs the Action. The Actuator executes the Action on the
-Target. In the context of this profile, the Actuator is the
-posture attribute collection. Table 2.1.4-1 lists the PAC
-Actuator. 
+An Actuator provides the functionality and performs the Action.
+The Actuator executes the Action on the Target. In the context of
+this profile, the Actuator performs the function of posture
+attribute collection. Table 2.1.4-1 lists the PAC Actuator. 
 
 #### Table 2.1.4-1 PAC Actuator
 
