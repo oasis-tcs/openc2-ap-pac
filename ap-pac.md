@@ -239,6 +239,14 @@ set, cyber security orchestrators may gain visibility into and
 provide control over PAC in a manner that is independent of the
 instance of the PAC function.
 
+The PAC Actuator profile is oriented for commanding an OpenC2
+Consumer that will, in turn, command other network components to
+retrieve the desired security posture attributes. The element
+receiving commands under the PAC Actuator profile is referred to
+here as an "Orchestrator Consumer", and an operating model for it
+is described in [Appendix
+E](#appendix-e-orchestrator-consumer-operating-model).
+
 All components, devices, and systems that provide PAC
 functionality MUST implement the identified OpenC2 Actions,
 Targets, Specifiers, and Arguments as specified in the
