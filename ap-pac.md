@@ -622,7 +622,8 @@ referenced with the `pac` namespace.
 > purpose of the use cases is to provide examples of how to
 > collect the posture attributes from selected endpoints for
 > storing and farther evaluation. The set of response results
-> unique to PAC is expect to shift and expand as this AP matures.
+> unique to PAC is expected to shift and expand as this AP
+> matures.
 
 #### Table 2.2.1-2 Response Results Unique to PAC 
 
@@ -1178,13 +1179,13 @@ received from the upstream Producer:
     4.  What information must be collected to generate a response
         to the upstream Producer.
 
-3.  Generate and send commands (as identified in 2.a) to the
+3.  Generate and send commands (as identified in 2.i) to the
     identified set of downstream Consumers (as identified in
-    2.b).
+    2.ii).
 
 4.  Process received downstream Consumer responses (as determined
-    in 2.c) and accumulate information to generate the response
-    to the upstream Producer (as determined in 2.d).
+    in 2.iii) and accumulate information to generate the response
+    to the upstream Producer (as determined in 2.iv).
 
 5.  When appropriate, generate and send the response to the
     upstream Producer.
@@ -1221,7 +1222,7 @@ retrievals from the upstream Producer:
 
 3.  The OC generates and sends commands in accordance with the
     SBOM AP to retrieve SBOMs from the 10 downstream Consumers
-    identified in 2.b.
+    identified in 2.ii.
 
 4.  The OC receives responses containing SBOMs from 8 of the 10
     downstream Consumers, and stores those SBOMs in the
