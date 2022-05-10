@@ -452,7 +452,7 @@ OpenC2 Command. The components of an OpenC2 Command include:
 -   **Target:** A subset of the Targets and Target-Specifiers defined
     in Version 1.0 of the [OpenC2 Language
     Specification](#openc2-lang-v1.0) that are meaningful in the
-    context of PAC and two Targets and their Specifiers that are
+    context of PAC and the Targets and their Specifiers that are
     defined in this specification.
 
 -   **Arguments:** A subset of the Arguments defined in Version 1.0
