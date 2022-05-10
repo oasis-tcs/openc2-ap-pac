@@ -268,8 +268,8 @@ PAC.
 [Section 3](#3-conformance) (normative) presents definitive
 criteria for conformance so that cyber security stakeholders can
 be assured that their products, instances and/or integrations are
-compatible with this profile (OpenC2 Actuator Profile for Posture
-Attribute Collection Version 1.0).
+compatible with this profile (*OpenC2 Actuator Profile for Posture
+Attribute Collection Version 1.0*).
 
 [Appendix E](#appendix-e-orchestrator-consumer-operating-model)
 (non-normative) describes the operating model for an
