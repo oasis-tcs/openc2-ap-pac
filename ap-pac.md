@@ -36,7 +36,7 @@ Duncan Sparrell (duncan@sfractal.com), [sFractal Consulting LLC](http://www.sfra
 Michael Rosa (mjrosa@cyber.nsa.gov), [National Security Agency](http://www.nsa.gov/)
 
 #### Editors:
-David Lemire (david.lemire@hii-tsd), [National Security Agency](http://www.nsa.gov/)
+David Lemire (david.lemire@hii-tsd), [National Security Agency](http://www.nsa.gov/) \
 David Kemp (d.kemp@cyber.nsa.gov), [National Security Agency](http://www.nsa.gov/)
 
 #### Additional artifacts:
