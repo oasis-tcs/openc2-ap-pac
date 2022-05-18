@@ -1303,10 +1303,15 @@ response to that request.
 
 ``` json
 {
-	"action": "query",
-	"target": {
-		"pac": ["sbom"]
-	}
+  "action": "query",
+  "target": {
+    "pac": {
+      "sbom": {
+        "type": ["uri", "summary"],
+        "content": ["spdx2"]
+      }
+    }
+  }
 }
 ```
 
@@ -1314,14 +1319,22 @@ response to that request.
 
 ``` json
 {
-	"status": 200,
-	"results": {
-		"pac": {
-			"sbom": {
-				"TODO": "Fill in data here??"
-			}
-		}
-	}
+  "status": 200,
+  "results": {
+    "pac": {
+      "sbom": {
+        "summary": {
+          "supplier": ["acme.com"],
+          "component": ["package-foo"],
+          "version": "1.0",
+          "component_ids": ["foo.exe"],
+          "dependencies": ["time.dll"],
+          "author": "Acme Foundation",
+          "timestamp": "2021-10-12T07:20:50.52Z"
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -1335,10 +1348,15 @@ the response to that request.
 
 ``` json
 {
-	"action": "query",
-	"target": {
-		"pac": ["os_version"]
-	}
+  "action": "query",
+  "target": {
+    "pac": {
+      "attrs": {
+        "os_version": true,
+        "file": {"path": "/path/to/file"}
+      }
+    }
+  }
 }
 ```
 
@@ -1346,23 +1364,25 @@ the response to that request.
 
 ``` json
 {
-	"status": 200,
-	"results": {
-		"pac": {
-			"os_version": {
-				"name": "macOS",
-				"version": "12.3.1",
-				"major": 12,
-				"minor": 3,
-				"patch": 1,
-				"build": "21E258",
-				"platform": "darwin",
-				"platform_like": "darwin",
-				"codename": "",
-				"arch": "x86_64"
-			}
-		}
-	}
+  "status": 200,
+  "results": {
+    "pac": {
+      "attrs": {
+        "os_version": {
+          "name": "macOS",
+          "version": "12.3.1",
+          "major": 12,
+          "minor": 3,
+          "patch": 1,
+          "build": "21E258",
+          "platform": "darwin",
+          "platform_like": "darwin",
+          "codename": "",
+          "arch": "x86_64"
+        }
+      }
+    }
+  }
 }
 ```
 
