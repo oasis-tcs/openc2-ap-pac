@@ -180,6 +180,7 @@ section in an Appendix below.
     - [2.3.1 Query](#231-query)
       - [2.3.2.1 query features](#2321-query-features)
       - [2.3.2.2 Query pac:attrs](#2322-query-pacattrs)
+      - [2.3.2.3 Query pac:sbom](#2323-query-pacsbom)
 - [3 Conformance](#3-conformance)
   - [3.1 Clauses Pertaining to the OpenC2 Producer Conformance Target](#31-clauses-pertaining-to-the-openc2-producer-conformance-target)
     - [3.1.1 Conformance Clause 1: Baseline OpenC2 Producer](#311-conformance-clause-1-baseline-openc2-producer)
@@ -196,7 +197,7 @@ section in an Appendix below.
   - [E.2 Assumptions](#e2-assumptions)
   - [E.3 Operations](#e3-operations)
   - [E.4 Notional Example](#e4-notional-example)
-- [Appendix F. Example Appendix with subsections](#appendix-f-example-appendix-with-subsections)
+- [Appendix F. Examples](#appendix-f-examples)
   - [F.1 Query and Return SBOM](#f1-query-and-return-sbom)
   - [F.1 Query and Return Operating System (OS) Version](#f1-query-and-return-operating-system-os-version)
 - [Appendix G. Notices](#appendix-g-notices)
@@ -286,7 +287,7 @@ commands from a higher-level ("upstream") Producer and then
 command lower-level ("downstream") Consumers to implement those
 commands.
 
-[Appendix F](#appendix-f-example-appendix-with-subsections) (non-normative)
+[Appendix F](#appendix-f-examples) (non-normative)
 provides multiple examples of Commands and associated Responses
 (JSON serialization).
 
@@ -473,9 +474,9 @@ combinations are presented in [Section 2.3](#23-openc2-commands).
 
 **Type: Action (Enumerated)**
 
-| ID | Item      | Description |
-|----|-----------|-------------|
-| 3  | **query** |  Initiate a request for information. |
+| ID | Name            | Description |
+|----|-----------------|------|
+| 3  | **query**       | Initiate a request for information. |
 
 ### 2.1.2 Targets
 
@@ -488,21 +489,42 @@ namespace identifier.
 
 #### Table 2.1.2-1 Common Targets Applicable to PAC
 
-**Type: Target (Enumerated)**
+**Type: Target (Choice)**
 
-| ID   | Item         | Description |
-|------|--------------|-------------|
-| 9    | **features** | A set of items used with the query Action to determine an Actuator's capabilities.|
-| 1035 | **pac/**     |             |
+
+| ID | Name                | Type            | \# | Description                                                                                          |
+|----|---------------------|-----------------|----|----|
+| 9  | **features**        | Features        | 1  | A set of items used with the query Action to determine an Actuator's capabilities.                   |
+| 1035 | **pac/**     | pac:AP-Target | 1  | Targets defined in the PAC actuator profile |
 
 
 #### Table 2.1.2-2 Targets Unique to PAC
 
 **Type: AP-Target (Choice)**
 
-| ID | Name      | Type                        | \#    | Description                              |
-|----|-----------|-----------------------------|-------|------------------------------------------|
-| 1  | **attrs** | PostureAttributeName unique | 1..\* | List of posture attribute names to query |
+| ID | Name      | Type                 | \# | Description |
+|----|-----------|----------------------|----|-------------|
+| 1  | **attrs** | Attribute-Specifiers | 1  |             |
+| 2  | **sbom**  | SBOM-Specifiers      | 1  |             |
+
+Usage Requirements: TBD
+
+**Type: Attribute-Specifiers (Map{1..\*})**
+
+| ID | Name             | Type           | \#   | Description |
+|----|------------------|----------------|------|-------------|
+| 1  | **os_version**   | Boolean        | 0..1 |             |
+| 2  | **password_min** | Boolean        | 0..1 |             |
+| 3  | **file**         | FileSpecifiers | 0..1 |             |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Specifiers (Map)**
+
+| ID | Name        | Type                               | \# | Description |
+|----|-------------|------------------------------------|----|-------------|
+| 1  | **type**    | ArrayOf(Enum[SBOM-Info]) unique    | 1  |             |
+| 2  | **content** | ArrayOf(Enum[SBOM-Content]) unique | 1  |             |
 
 Usage Requirements: TBD
 
@@ -520,27 +542,17 @@ the `pac` namespace identifier.
 
 #### Table 2.1.3-1 Common Command Arguments Applicable to PAC
 
-**Type: Args (Enumerated)**
+**Type: Args (Map{1..\*})**
 
-| ID | Name | Type | # | Description |
-| ---: | :--- | :--- | ---: | :--- |
-| 1 | **start_time** | Date-Time | 0..1 | The specific date/time to initiate the Command |
-| 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Command |
-| 3 | **duration** | Duration | 0..1 | The length of time for an Command to be in effect |
-| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Command: `none`, `ack`, `status`, `complete`. |
-| 1035 | **pac/**               |             |
-
-
-#### Table 2.1.3-2 Command Arguments Unique to PAC
-
-**Type: AP-Args (Map{1..\*})**
-
-| ID | Name    | Type   | \#   | Description              |
-|----|---------|--------|------|--------------------------|
-| 1  | **foo** | String | 0..1 | Delete from Args if none |
+| ID   | Name                   | Type          | \#   | Description                                                                |
+|------|------------------------|---------------|------|----------------------------------------------------------------------------|
+| 1    | **start_time**         | Date-Time     | 0..1 | The specific date/time to initiate the Command |
+| 2    | **stop_time**          | Date-Time     | 0..1 | The specific date/time to terminate the Command |
+| 3    | **duration**           | Duration      | 0..1 | The length of time for an Command to be in effect |
+| 4    | **response_requested** | Response-Type | 0..1 | The type of Response required for the Command: none, ack, status, complete |
 
 
-Usage Requirements: TBD
+There are no command arguments unique to PAC.
 
 #### 2.1.3.1 Data Type Definitions
 
@@ -562,22 +574,28 @@ attribute collection. Table 2.1.4-1 lists the PAC Actuator.
 | 1035 | **pac/** |             |
 
 
+
+
 ### 2.1.5 Actuator Specifiers
 
 The presence of one or more Specifiers further refine which
 Actuator(s) shall execute the Action. Table 2.1.5-1 lists the
-Specifiers that are applicable to the PAC Actuator . Appendix E
-provides sample Commands with the use of Specifiers. The Actuator
+Specifiers that are applicable to the PAC Actuator. The Actuator
 Specifiers defined in this profile are referenced with the `pac`
 namespace identifier.
+
 
 #### Table 2.1.5-1 PAC Actuator Specifiers
 
 **Type: AP-Specifiers (Map)**
 
+PAC does not use any actuator specifiers. Table intentionally left empty.
+
+
 | ID | Name    | Type   | \#   | Description                  |
 |----|---------|--------|------|------------------------------|
-| 1  | **foo** | String | 0..1 | Delete from Actuator if none |
+| 1  |  |  |  |  |
+
 
 
 ## 2.2 OpenC2 Response Components
@@ -589,7 +607,7 @@ implement the RESPONSE associated with the implemented Action.
 Additional details regarding Command and associated Response are
 captured in [Section 2.3](#23-openc2-commands). Examples are
 provided in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
+F](#appendix-f-examples).
 
 
 ### 2.2.1 Common Response Results
@@ -600,15 +618,16 @@ applicable to PAC.
 
 #### Table 2.2.1-1 Common Response Results Applicable to PAC
 
-**Type: Results (Enumerated)**
+**Type: Results (Map{1..\*})**
 
-| ID | Name | Type | # | Description |
-| ---: | :--- | :--- | ---: | :--- |
-| 1 | **versions** | Version unique | 0..* | List of OpenC2 language versions supported by this Actuator |
-| 2 | **profiles** | ArrayOf(Nsid) | 0..1 | List of profiles supported by this Actuator |
-| 3 | **pairs** | Action-Targets | 0..1 | List of targets applicable to each supported Action |
-| 4 | **rate_limit** | Number{0..*} | 0..1 | Maximum number of requests per minute supported by design or policy |
-| 1035 | **pac/** | pac:AP-Results | 0..1 |
+| ID | Name           | Type           | \#    | Description                                                         |
+|----|----------------|----------------|-------|---------------------------------------------------------------------|
+| 1  | **versions**   | Version unique | 0..\* | List of OpenC2 language versions supported by this Actuator         |
+| 2  | **profiles**   | ArrayOf(Nsid)  | 0..1  | List of profiles supported by this Actuator                         |
+| 3  | **pairs**      | Action-Targets | 0..1  | List of targets applicable to each supported Action                 |
+| 4  | **rate_limit** | Number{0..\*}  | 0..1  | Maximum number of requests per minute supported by design or policy |
+| 1035 | **pac/**     | pac:AP-Results | 0..1  | PAC-defined results |
+
 
 
 The list of common Response properties is extended to include the
@@ -629,28 +648,41 @@ referenced with the `pac` namespace.
 
 **Type: AP-Results (Map{1..\*})**
 
-| ID | Name           | Type       | \# | Description |
-|----|----------------|------------|----|-------------|
-| 1  | **os_version** | OS-Version | 1  |             |
-| 2  | **sbom**       | SBOM       | 1  |             |
+| ID | Name      | Type              | \#   | Description |
+|----|-----------|-------------------|------|-------------|
+| 1  | **attrs** | PostureAttributes | 0..1 |             |
+| 2  | **sbom**  | SBOM-Info         | 0..1 |             |
 
 
 #### 2.2.1.1 Data Type Definitions
 
+**Type: PostureAttributes (Map{1..\*})**
+
+| ID | Name             | Type       | \#   | Description |
+|----|------------------|------------|------|-------------|
+| 1  | **os_version**   | OS-Version | 0..1 |             |
+| 2  | **password_min** | Integer    | 0..1 |             |
+| 3  | **file**         | File       | 0..1 |             |
+
+Usage Requirements: TBD
+
 **Type: OS-Version (Record)**
 
-| ID | Name              | Type         | \#    | Description                          |
-|----|-------------------|--------------|-------|--------------------------------------|
-| 1  | **name**          | String       | 1     | Distribution or product name         |
-| 2  | **version**       | String       | 1     | Suitable for presentation OS version |
-| 3  | **major**         | Integer      | 0..1  | Major release version                |
-| 4  | **patch**         | Integer      | 0..1  | Patch release                        |
-| 5  | **build**         | String       | 0..1  | Build-specific or variant string     |
-| 6  | **platform**      | String       | 0..1  | OS Platform or ID                    |
-| 7  | **platform_like** | String       | 0..\* | Closely-related platforms            |
-| 8  | **arch**          | OS-Arch      | 0..1  | OS Architecture                      |
-| 9  | **install_date**  | ls:Date-Time | 0..1  | Install date of the OS               |
-
+| ID | Name                   | Type    | \#   | Description                          |
+|----|------------------------|---------|------|--------------------------------------|
+| 1  | **name**               | String  | 1    | Distribution or product name         |
+| 2  | **version**            | String  | 1    | Suitable for presentation OS version |
+| 3  | **major**              | Integer | 1    | Major release version                |
+| 4  | **minor**              | Integer | 1    | Minor release version                |
+| 5  | **patch**              | Integer | 1    | Patch release                        |
+| 6  | **build**              | String  | 1    | Build-specific or variant string     |
+| 7  | **platform**           | String  | 1    | OS Platform or ID                    |
+| 8  | **platform_like**      | String  | 1    | Closely-related platform             |
+| 9  | **codename**           | String  | 1    | OS Release codename                  |
+| 10 | **arch**               | OS-Arch | 1    | OS Architecture                      |
+| 11 | **install_date**       | Integer | 0..1 | Install date of the OS (seconds)     |
+| 12 | **pid_with_namespace** | String  | 0..1 |                                      |
+| 13 | **mount_namespace_id** | String  | 0..1 |                                      |
 
 Usage Requirements: TBD
 
@@ -663,31 +695,47 @@ Usage Requirements: TBD
 | 3  | **x86_32** |             |
 | 4  | **x86_64** |             |
 
+Usage Requirements: TBD
+
+**Type: FileSpecifiers (Map{1..\*})**
+
+| ID | Name     | Type      | \#   | Description |
+|----|----------|-----------|------|-------------|
+| 1  | **path** | String    | 0..1 |             |
+| 2  | **hash** | ls:Hashes | 0..1 |             |
 
 Usage Requirements: TBD
 
-**Type: SBOM (Choice)**
+**Type: File (Record)**
 
-| ID | Name        | Type          | \# | Description                              |
-|----|-------------|---------------|----|------------------------------------------|
-| 1  | **uri**     | ls:URI        | 1  | Unique identifier or locator of the SBOM |
-| 2  | **summary** | SBOM-Elements | 1  | NTIA Minimumum Elements of an SBOM       |
-| 3  | **content** | SBOM-Content  | 1  | SBOM structured data                     |
-| 4  | **blob**    | SBOM-Blob     | 1  | Uninterpreted SBOM bytes                 |
+| ID | Name     | Type   | \# | Description |
+|----|----------|--------|----|-------------|
+| 1  | **data** | Binary | 1  |             |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Info (Map{1..\*})**
+
+| ID | Name        | Type          | \#   | Description                              |
+|----|-------------|---------------|------|------------------------------------------|
+| 1  | **uri**     | ls:URI        | 0..1 | Unique identifier or locator of the SBOM |
+| 2  | **summary** | SBOM-Elements | 0..1 | NTIA Minimumum Elements of an SBOM       |
+| 3  | **content** | SBOM-Content  | 0..1 | SBOM structured data                     |
+| 4  | **blob**    | SBOM-Blob     | 0..1 | Uninterpreted SBOM bytes                 |
 
 Usage Requirements: TBD
 
 **Type: SBOM-Elements (Record)**
 
-| ID | Name              | Type         | \#    | Description                                                                          |
-|----|-------------------|--------------|-------|--------------------------------------------------------------------------------------|
-| 1  | **supplier**      | String       | 1..\* | Name of entity that creates, defines, and identifies components                      |
-| 2  | **component**     | String       | 1..\* | Designation(s) assigned to a unit of software defined by the original supplier       |
-| 3  | **version**       | String       | 1     | Identifier used by supplier to specify a change from a previously identified version |
-| 4  | **component_ids** | String       | 0..\* | Other identifiers used to identify a component, or serve as a look-yp key            |
-| 5  | **dependencies**  | String       | 0..\* | Upstream component(s)                                                                |
-| 6  | **author**        | String       | 1     | Name of the entity that creates SBOM data for this component                         |
-| 7  | **timestamp**     | ls:Date-Time | 1     | Record of the date and time of the SBOM data assembly                                |
+| ID | Name              | Type     | \#    | Description                                                                          |
+|----|-------------------|----------|-------|--------------------------------------------------------------------------------------|
+| 1  | **supplier**      | String   | 1..\* | Name(s) of entity that creates, defines, and identifies components                   |
+| 2  | **component**     | String   | 1..\* | Designation(s) assigned to a unit of software defined by the original supplier       |
+| 3  | **version**       | String   | 1     | Identifier used by supplier to specify a change from a previously identified version |
+| 4  | **component_ids** | String   | 1..\* | Other identifiers used to identify a component, or serve as a look-yp key            |
+| 5  | **dependencies**  | String   | 1..\* | Upstream component(s)                                                                |
+| 6  | **author**        | String   | 1     | Name of the entity that creates SBOM data for this component                         |
+| 7  | **timestamp**     | DateTime | 1     | Record of the date and time of the SBOM data assembly                                |
 
 Usage Requirements: TBD
 
@@ -701,9 +749,6 @@ Usage Requirements: TBD
 
 Usage Requirements: TBD
 
-
-
-
 **Type: SBOM-Blob (Record)**
 
 | ID | Name       | Type                           | \# | Description |
@@ -713,6 +758,9 @@ Usage Requirements: TBD
 
 Usage Requirements: TBD
 
+| Type Name    | Type Definition                                                           | Description     |
+|--------------|---------------------------------------------------------------------------|-----------------|
+| **DateTime** | String{pattern="^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z\|[\+-]\d{2}:\d{2})?)$"} | RFC-3339 format |
 
 ### 2.2.2 Response Status Codes
 
@@ -724,19 +772,20 @@ PAC.
 
 > _EDITOR'S NOTE: for now simply including all of the status codes from the LS._
 
-**_Type: Status-Code (Enumerated.ID)_**
+**Type: Status-Code (Enumerated.ID)**
 
-| ID | Description |
-| ---: | :--- |
-| 102 | **Processing** - an interim Response used to inform the Producer that the Consumer has accepted the Command but has not yet completed it. |
-| 200 | **OK** - the Command has succeeded. |
-| 400 | **Bad Request** - the Consumer cannot process the Command due to something that is perceived to be a Producer error (e.g., malformed Command syntax). |
-| 401 | **Unauthorized** - the Command Message lacks valid authentication credentials for the target resource or authorization has been refused for the submitted credentials. |
-| 403 | **Forbidden** - the Consumer understood the Command but refuses to authorize it. |
-| 404 | **Not Found** - the Consumer has not found anything matching the Command. |
-| 500 | **Internal Error** - the Consumer encountered an unexpected condition that prevented it from performing the Command. |
-| 501 | **Not Implemented** - the Consumer does not support the functionality required to perform the Command. |
-| 503 | **Service Unavailable** - the Consumer is currently unable to perform the Command due to a temporary overloading or maintenance of the Consumer. |
+| ID  | Description                                                                                                                                                           |
+|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 102 | **Processing** - an interim Response used to inform the Producer that the Consumer has accepted the Command but has not yet completed it                              |
+| 200 | **OK** - the Command has succeeded                                                                                                                                    |
+| 201 | **Created** - the Command has succeeded and a new resource has been created as a result of it                                                                         |
+| 400 | **Bad Request** - the Consumer cannot process the Command due to something that is perceived to be a Producer error (e.g., malformed Command syntax)                  |
+| 401 | **Unauthorized** - the Command Message lacks valid authentication credentials for the target resource or authorization has been refused for the submitted credentials |
+| 403 | **Forbidden** - the Consumer understood the Command but refuses to authorize it                                                                                       |
+| 404 | **Not Found** - the Consumer has not found anything matching the Command                                                                                              |
+| 500 | **Internal Error** - the Consumer encountered an unexpected condition that prevented it from performing the Command                                                   |
+| 501 | **Not Implemented** - the Consumer does not support the functionality required to perform the Command                                                                 |
+| 503 | **Service Unavailable** - the Consumer is currently unable to perform the Command due to a temporary overloading or maintenance of the Consumer                       |
 
 
 ## 2.3 OpenC2 Commands
@@ -754,8 +803,8 @@ defines a valid Command.
 | | **query**|
 |---:|:---:|
 | **features**| valid |
-| **pac/**  | valid |
-
+| **pac/attrs**  | valid |
+| **pac/sbom**  | valid |
 
 #### Table 2.3-1. Command Matrix
 
@@ -767,9 +816,9 @@ in Table 2.3-2) defines an allowable combination.
  
 #### Table 2.3-2. Command Arguments Matrix
 
-| | query features | query pac:attrs |
-| ---: | :---: | :---: |
-| response_requested | 2.3.2.1 | 2.3.2.2 |
+| | query features | query pac:attrs | query pac:sbom |
+| ---: | :---: | :---: | :---: |
+| response_requested | 2.3.2.1 | 2.3.2.2 | 2.3.2.3 |
 
 
 
@@ -781,7 +830,7 @@ Command, also as influenced by the Arguments.
 The valid Target types and Arguments for the query Action are
 summarized in Table 2.3-1 Command Matrix and Table 2.3-2 Command
 Arguments Matrix. Sample Commands are presented in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
+F](#appendix-f-examples).
 
 Upon receipt of `query [target]` Command with an Argument that is
 not supported by the Actuator, PAC Consumers:
@@ -808,14 +857,22 @@ Implementation of 'query features' Command, of Version 1.0 of the
 
 #### 2.3.2.2 Query pac:attrs
 
-The `query pac:os_version` Command provides a mechanism to
+The `query pac:attrs` Command provides a mechanism to
 collect the information such as name, version and other operating
 system related data according to the provided target specifiers.
-Implementation of the `query pac:os_version` Command is OPTIONAL.
-Products that choose to implement the `query pac:os_version`
-Command MUST implement the pac:os\_version Target type described
+Implementation of the `query pac:attrs` Command is OPTIONAL.
+Products that choose to implement the `query pac:attrs`
+Command MUST implement the `pac:attrs` Target type described
 in Table 2.1.2-2.
 
+#### 2.3.2.3 Query pac:sbom
+
+The `query pac:sbom` Command provides a mechanism to
+collect an SBOM from one or more devices according to the provided target specifiers.
+Implementation of the `query pac:sbom` Command is OPTIONAL.
+Products that choose to implement the `query pac:sbom`
+Command MUST implement the `pac:sbom` Target type described
+in Table 2.1.2-2.
 
 -------
 
@@ -1236,7 +1293,7 @@ retrievals from the upstream Producer:
 
 -------
 
-# Appendix F. Example Appendix with subsections
+# Appendix F. Examples
 
 ## F.1 Query and Return SBOM
 
@@ -1248,10 +1305,15 @@ response to that request.
 
 ``` json
 {
-	"action": "query",
-	"target": {
-		"pac": ["sbom"]
-	}
+  "action": "query",
+  "target": {
+    "pac": {
+      "sbom": {
+        "type": ["uri", "summary"],
+        "content": ["spdx2"]
+      }
+    }
+  }
 }
 ```
 
@@ -1259,14 +1321,22 @@ response to that request.
 
 ``` json
 {
-	"status": 200,
-	"results": {
-		"pac": {
-			"sbom": {
-				"TODO": "Fill in data here??"
-			}
-		}
-	}
+  "status": 200,
+  "results": {
+    "pac": {
+      "sbom": {
+        "summary": {
+          "supplier": ["acme.com"],
+          "component": ["package-foo"],
+          "version": "1.0",
+          "component_ids": ["foo.exe"],
+          "dependencies": ["time.dll"],
+          "author": "Acme Foundation",
+          "timestamp": "2021-10-12T07:20:50.52Z"
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -1280,10 +1350,15 @@ the response to that request.
 
 ``` json
 {
-	"action": "query",
-	"target": {
-		"pac": ["os_version"]
-	}
+  "action": "query",
+  "target": {
+    "pac": {
+      "attrs": {
+        "os_version": true,
+        "file": {"path": "/path/to/file"}
+      }
+    }
+  }
 }
 ```
 
@@ -1291,23 +1366,25 @@ the response to that request.
 
 ``` json
 {
-	"status": 200,
-	"results": {
-		"pac": {
-			"os_version": {
-				"name": "macOS",
-				"version": "12.3.1",
-				"major": 12,
-				"minor": 3,
-				"patch": 1,
-				"build": "21E258",
-				"platform": "darwin",
-				"platform_like": "darwin",
-				"codename": "",
-				"arch": "x86_64"
-			}
-		}
-	}
+  "status": 200,
+  "results": {
+    "pac": {
+      "attrs": {
+        "os_version": {
+          "name": "macOS",
+          "version": "12.3.1",
+          "major": 12,
+          "minor": 3,
+          "patch": 1,
+          "build": "21E258",
+          "platform": "darwin",
+          "platform_like": "darwin",
+          "codename": "",
+          "arch": "x86_64"
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -1401,160 +1478,3 @@ reserving the right to enforce its marks against misleading uses.
 Please see
 https://www.oasis-open.org/policies-guidelines/trademark/ for
 above guidance.
-
-------
-
-## 1.3 Some markdown usage examples
-
-**Text.**
-
-Note that text paragraphs in markdown should be separated by a
-blank line between them -
-
-Otherwise the separate paragraphs will be joined together when
-the HTML is generated. Even if the text appears to be separate
-lines in the markdown source.
-
-To avoid having the usual vertical space between paragraphs,  
-append two or more space characters (or space-backslash) to the
-end of the lines  
-which will generate an HTML break tag instead of a new paragraph
-tag \
-(as demonstrated here).
-
-### 1.3.1 Figures and Captions
-
-FIGURE EXAMPLE: <note caption is best placed ABOVE figure, so a
-hyperlink to it will actually display the figure, instead of
-rendering the figure off the screen above the caption. The same
-placement should be used for table captions>
-
-###### Figure 1 -- Title of Figure
-![image-label should be meaningful](images/image_0.png) (this
-image is intentionally missing)
-
-###### Figure 2 -- OpenC2 Message Exchange
-![message exchange](images/image_1.png)
-
-
-### 1.3.2 Tables
-
-#### 1.3.2.1 Basic Table
-**Table 1-1. Table Label**
-
-| Item | Description |
-| :--- | :--- |
-| Item 1 | Something<br>(second line) |
-| Item 2 | Something |
-| Item 3 | Something<br>(second line) |
-| Item 4 | text |
-
-#### 1.3.2.2 Table with Three Columns and Some Bold Text
-text.
-
-| Title 1 | Title 2 | title 3 |
-| :--- | :--- | :--- |
-| something | something | something else that is a long string of text that **might** need to wrap around inside the table box and will just continue until the column divider is reached |
-| something | something | something |
-
-#### 1.3.2.3 Table with a caption which can be referenced
-
-###### Table 1-5. See reference label construction
-
-| Name | Description |
-| :--- | :--- |
-| **content** | Message body as specified by content_type and msg_type. |
-
-Here is a reference to the table caption: Please see [Table 1-5
-or other meaningful
-label](#table-1-5-see-reference-label-construction) 
-
-
-### 1.3.3 Lists
-
-Bulleted list:
-* bullet item 1.
-* **Bold** bullet item 2.
-* bullet item 3.
-* bullet item 4.
-
-Indented or multi-level bullet list - add two spaces per level
-before bullet character (* or -):
-* main bullet type
-  * Example second bullet
-    * See third level
-      * fourth level
-
-Numbered list:
-1. item 1
-2. item 2
-3. item 3
-
-Left-justified list without bullets or numbers: To list multiple
-items without full paragraph breaks between items, add
-space-backslash after each item except the last.
-
-### 1.3.4 Reference Label Construction
-
-REFERENCES and ANCHORS
-- in markdown source, format the Reference tags as level 6
-  headings like: `###### [RFC2119]`
-###### [RFC2119]
-Bradner, S., "Key words ..."
-
-- reference text has to be on a separate line below the tag
-
-- format cross-references (citations of the references) like:
-  `see [[RFC2119](#rfc2119)]`  
-"see [[RFC2119](#rfc2119)]"  
-(note the outer square brackets in markdown will appear in the
-visible HTML text)
-
-- The text in the Reference tag (following ###### ) will become
-  an HTML anchor using the following conversion rules:  
-  - punctuation marks will be dropped (including "[" )  
-  - leading white spaces will be dropped  
-  - upper case will be converted to lower  
-  - spaces between letters will be converted to a single hyphen
-
-- The same HTML anchor construction rules apply to
-  cross-references and to section headings.  
-  - Thus, a section heading like "## 1.2 Glossary"  
-  - becomes an anchor in HTML like `<a href="#12-glossary">`  
-  - referenced in the markdown like: see [Section
-    1.2](#12-glossary)  
-  - in markdown: `"see [Section 1.2](#12-glossary)"`  
-  - similar HTML anchors are also used in constructing the TOC
-
-### 1.3.5 Code Blocks
-
-Text to appear as an indented code block with grey background and
-monospace font - use three back-ticks before and after the code
-block.
-
-Note the actual backticks will not appear in the HTML format. If
-it's necessary to display visible backticks, place a back-slash
-before them like: \``` .
-
-```
-{   
-    "target": {
-        "x_kmip_2.0": {
-            {"kmip_type": "json"},
-            {"operation": "RekeyKeyPair"},
-            {"name": "publicWebKey11DEC2017"}
-        }
-    }
-}
-```
-
-Text to be highlighted as code can also be surrounded by a single
-"backtick" character: `code text`
-
-## 1.4 Page Breaks
-Add horizontal rule lines where page breaks are desired in the
-PDF - before each major section
-- insert the line rules in markdown by inserting 3 or more
-  hyphens on a line by themselves:  ---
-- place these before each main section in markdown (usually "#" -
-  which generates the HTML `<h1>` tag)
