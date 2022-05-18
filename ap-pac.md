@@ -493,8 +493,8 @@ namespace identifier.
 
 | ID | Name                | Type            | \# | Description                                                                                          |
 |----|---------------------|-----------------|----|----|
-| 9  | **features**        | Features        | 1  | A set of items used with the query Action to determine an Actuator's capabilities.                   |
-| 1035 | **pac/**     | pac:AP-Target | 1  | PAC-defined targets |
+| 9  | **features**        | ls:Features        | 1  | A set of items used with the query Action to determine an Actuator's capabilities.                   |
+| 1035 | **pac/**     | pac:AP-Target | 1  | Targets defined in the PAC actuator profile |
 
 
 #### Table 2.1.2-2 Targets Unique to PAC
