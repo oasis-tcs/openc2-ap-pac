@@ -295,7 +295,7 @@ commands from a higher-level ("upstream") Producer and then
 command lower-level ("downstream") Consumers to implement those
 commands.
 
-[Appendix F](#appendix-f-example-appendix-with-subsections) (non-normative)
+[Appendix F](#appendix-f-examples) (non-normative)
 provides multiple examples of Commands and associated Responses
 (JSON serialization).
 
@@ -616,7 +616,7 @@ implement the RESPONSE associated with the implemented Action.
 Additional details regarding Command and associated Response are
 captured in [Section 2.3](#23-openc2-commands). Examples are
 provided in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
+F](#appendix-f-examples).
 
 
 ### 2.2.1 Common Response Results
@@ -841,7 +841,7 @@ Command, also as influenced by the Arguments.
 The valid Target types and Arguments for the query Action are
 summarized in Table 2.3-1 Command Matrix and Table 2.3-2 Command
 Arguments Matrix. Sample Commands are presented in [Appendix
-F](#appendix-f-example-appendix-with-subsections).
+F](#appendix-f-examples).
 
 Upon receipt of `query [target]` Command with an Argument that is
 not supported by the Actuator, PAC Consumers:
