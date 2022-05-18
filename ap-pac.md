@@ -5,9 +5,9 @@
 
 # OpenC2 Actuator Profile for Posture Attribute Collection Version 1.0
 
-## Committee Specification Draft 01
+## Working Draft 01
 
-## xx May 2022
+## 18 May 2022
 
 &nbsp;
 
@@ -36,7 +36,7 @@ Duncan Sparrell (duncan@sfractal.com), [sFractal Consulting LLC](http://www.sfra
 Michael Rosa (mjrosa@cyber.nsa.gov), [National Security Agency](http://www.nsa.gov/)
 
 #### Editors:
-David Lemire (david.lemire@hii-tsd), [National Security Agency](http://www.nsa.gov/)
+David Lemire (david.lemire@hii-tsd), [National Security Agency](http://www.nsa.gov/) \
 David Kemp (d.kemp@cyber.nsa.gov), [National Security Agency](http://www.nsa.gov/)
 
 #### Additional artifacts:
