@@ -620,11 +620,11 @@ applicable to PAC.
 
 | ID | Name           | Type           | \#    | Description                                                         |
 |----|----------------|----------------|-------|---------------------------------------------------------------------|
-| 1  | **versions**   | Version unique | 0..\* | List of OpenC2 language versions supported by this Actuator         |
+| 1  | **versions**   | ls: Version unique | 0..\* | List of OpenC2 language versions supported by this Actuator         |
 | 2  | **profiles**   | ArrayOf(Nsid)  | 0..1  | List of profiles supported by this Actuator                         |
 | 3  | **pairs**      | Action-Targets | 0..1  | List of targets applicable to each supported Action                 |
 | 4  | **rate_limit** | Number{0..\*}  | 0..1  | Maximum number of requests per minute supported by design or policy |
-| 1035 | **pac/**     |                | 0..1  | PAC-defined results |
+| 1035 | **pac/**     | pac:AP-Results | 0..1  | PAC-defined results |
 
 
 
