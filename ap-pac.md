@@ -5,9 +5,9 @@
 
 # OpenC2 Actuator Profile for Posture Attribute Collection Version 1.0
 
-## Committee Specification Draft 01
+## Working Draft 01
 
-## xx May 2022
+## 18 May 2022
 
 &nbsp;
 
