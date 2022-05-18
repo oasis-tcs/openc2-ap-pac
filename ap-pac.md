@@ -473,9 +473,9 @@ combinations are presented in [Section 2.3](#23-openc2-commands).
 
 **Type: Action (Enumerated)**
 
-| ID | Item      | Description                         |
-|----|-----------|-------------------------------------|
-| 3  | **query** | Initiate a request for information. |
+| ID | Name            | Description |
+|----|-----------------|------|
+| 3  | **query**       | Initiate a request for information. |
 
 ### 2.1.2 Targets
 
@@ -490,10 +490,12 @@ namespace identifier.
 
 **Type: Target (Choice)**
 
-| ID   | Name         | Type          | \# | Description                                                                        |
-|------|--------------|---------------|----|------------------------------------------------------------------------------------|
-| 9    | **features** | Features      | 1  | A set of items used with the query Action to determine an Actuator's capabilities. |
-| 1035 | **pac/**     | AP-Target$pac | 1  | PAC-defined targets |
+
+| ID | Name                | Type            | \# | Description                                                                                          |
+|----|---------------------|-----------------|----|----|
+| 9  | **features**        | Features        | 1  | A set of items used with the query Action to determine an Actuator's capabilities.                   |
+| 1035 | **pac/**     | AP-Target | 1  | PAC-defined targets |
+
 
 #### Table 2.1.2-2 Targets Unique to PAC
 
@@ -614,13 +616,15 @@ applicable to PAC.
 
 **Type: Results (Enumerated)**
 
-| ID   | Item           | Description |
-|------|----------------|-------------|
-| 1    | **versions**   | List of OpenC2 language versions supported by this Actuator |
-| 2    | **profiles**   | List of profiles supported by this Actuator |
-| 3    | **pairs**      | DEPRECATED: targets applicable to each supported Action |
-| 4    | **rate_limit** | Maximum number of requests per minute supported by design or policy |
-| 1035 | **pac/**       | PAC-defined results |
+**Type: Results (Map{1..\*})**
+
+| ID | Name           | Type           | \#    | Description                                                         |
+|----|----------------|----------------|-------|---------------------------------------------------------------------|
+| 1  | **versions**   | Version unique | 0..\* | List of OpenC2 language versions supported by this Actuator         |
+| 2  | **profiles**   | ArrayOf(Nsid)  | 0..1  | List of profiles supported by this Actuator                         |
+| 3  | **pairs**      | Action-Targets | 0..1  | List of targets applicable to each supported Action                 |
+| 4  | **rate_limit** | Number{0..\*}  | 0..1  | Maximum number of requests per minute supported by design or policy |
+| 1035 | **pac/**     |                | 0..1  | PAC-defined results |
 
 
 
@@ -658,7 +662,7 @@ referenced with the `pac` namespace.
 | 2  | **password_min** | Integer    | 0..1 |             |
 | 3  | **file**         | File       | 0..1 |             |
 
-
+Usage Requirements: TBD
 
 **Type: OS-Version (Record)**
 
@@ -677,7 +681,6 @@ referenced with the `pac` namespace.
 | 11 | **install_date**       | Integer | 0..1 | Install date of the OS (seconds)     |
 | 12 | **pid_with_namespace** | String  | 0..1 |                                      |
 | 13 | **mount_namespace_id** | String  | 0..1 |                                      |
-
 
 Usage Requirements: TBD
 
@@ -733,7 +736,6 @@ Usage Requirements: TBD
 | 7  | **timestamp**     | DateTime | 1     | Record of the date and time of the SBOM data assembly                                |
 
 Usage Requirements: TBD
-
 
 **Type: SBOM-Content (Choice)**
 
