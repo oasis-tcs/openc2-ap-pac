@@ -588,8 +588,7 @@ attribute collection. Table 2.1.4-1 lists the PAC Actuator.
 
 The presence of one or more Specifiers further refine which
 Actuator(s) shall execute the Action. Table 2.1.5-1 lists the
-Specifiers that are applicable to the PAC Actuator . Appendix E
-provides sample Commands with the use of Specifiers. The Actuator
+Specifiers that are applicable to the PAC Actuator. The Actuator
 Specifiers defined in this profile are referenced with the `pac`
 namespace identifier.
 
