@@ -177,9 +177,12 @@ section in an Appendix below.
       - [2.2.1.1 Data Type Definitions](#2211-data-type-definitions)
     - [2.2.2 Response Status Codes](#222-response-status-codes)
   - [2.3 OpenC2 Commands](#23-openc2-commands)
+      - [Table 2.3-1. Command Matrix](#table-23-1-command-matrix)
+      - [Table 2.3-2. Command Arguments Matrix](#table-23-2-command-arguments-matrix)
     - [2.3.1 Query](#231-query)
       - [2.3.2.1 query features](#2321-query-features)
       - [2.3.2.2 Query pac:attrs](#2322-query-pacattrs)
+      - [2.3.2.3 Query pac:sbom](#2323-query-pacsbom)
 - [3 Conformance](#3-conformance)
   - [3.1 Clauses Pertaining to the OpenC2 Producer Conformance Target](#31-clauses-pertaining-to-the-openc2-producer-conformance-target)
     - [3.1.1 Conformance Clause 1: Baseline OpenC2 Producer](#311-conformance-clause-1-baseline-openc2-producer)
@@ -190,15 +193,21 @@ section in an Appendix below.
   - [A.2 Informative References](#a2-informative-references)
 - [Appendix B. Safety, Security and Privacy Considerations](#appendix-b-safety-security-and-privacy-considerations)
 - [Appendix C. Acknowledgments](#appendix-c-acknowledgments)
+  - [C.1 Special Thanks](#c1-special-thanks)
+  - [C.2 Participants](#c2-participants)
 - [Appendix D. Revision History](#appendix-d-revision-history)
 - [Appendix E. Orchestrator Consumer Operating Model](#appendix-e-orchestrator-consumer-operating-model)
   - [E.1. Terminology](#e1-terminology)
   - [E.2 Assumptions](#e2-assumptions)
   - [E.3 Operations](#e3-operations)
   - [E.4 Notional Example](#e4-notional-example)
-- [Appendix F. Example Appendix with subsections](#appendix-f-example-appendix-with-subsections)
+- [Appendix F. Examples](#appendix-f-examples)
   - [F.1 Query and Return SBOM](#f1-query-and-return-sbom)
+    - [F.1.1 Query SBOM](#f11-query-sbom)
+    - [F.2.1 Return SBOM](#f21-return-sbom)
   - [F.1 Query and Return Operating System (OS) Version](#f1-query-and-return-operating-system-os-version)
+    - [F.1.1 Query OS Version](#f11-query-os-version)
+    - [F.2.1 Return OS Version](#f21-return-os-version)
 - [Appendix G. Notices](#appendix-g-notices)
 
 -------
@@ -584,13 +593,17 @@ provides sample Commands with the use of Specifiers. The Actuator
 Specifiers defined in this profile are referenced with the `pac`
 namespace identifier.
 
+
 #### Table 2.1.5-1 PAC Actuator Specifiers
 
-**Type: AP-Specifiers$pac (Map)**
+**Type: AP-Specifiers (Map)**
+
+PAC does not use any actuator specifiers. Table intentionally left empty.
+
 
 | ID | Name    | Type   | \#   | Description                  |
 |----|---------|--------|------|------------------------------|
-| 1  | **foo** | String | 0..1 | Delete from Actuator if none |
+| 1  |  |  |  |  |
 
 
 
@@ -1291,7 +1304,7 @@ retrievals from the upstream Producer:
 
 -------
 
-# Appendix F. Example Appendix with subsections
+# Appendix F. Examples
 
 ## F.1 Query and Return SBOM
 
