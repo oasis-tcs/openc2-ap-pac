@@ -473,9 +473,9 @@ combinations are presented in [Section 2.3](#23-openc2-commands).
 
 **Type: Action (Enumerated)**
 
-| ID | Item      | Description |
-|----|-----------|-------------|
-| 3  | **query** |  Initiate a request for information. |
+| ID | Item      | Description                         |
+|----|-----------|-------------------------------------|
+| 3  | **query** | Initiate a request for information. |
 
 ### 2.1.2 Targets
 
@@ -488,21 +488,40 @@ namespace identifier.
 
 #### Table 2.1.2-1 Common Targets Applicable to PAC
 
-**Type: Target (Enumerated)**
+**Type: Target (Choice)**
 
-| ID   | Item         | Description |
-|------|--------------|-------------|
-| 9    | **features** | A set of items used with the query Action to determine an Actuator's capabilities.|
-| 1035 | **pac/**     |             |
-
+| ID   | Name         | Type          | \# | Description                                                                        |
+|------|--------------|---------------|----|------------------------------------------------------------------------------------|
+| 9    | **features** | Features      | 1  | A set of items used with the query Action to determine an Actuator's capabilities. |
+| 1035 | **pac/**     | AP-Target$pac | 1  | PAC-defined targets |
 
 #### Table 2.1.2-2 Targets Unique to PAC
 
 **Type: AP-Target (Choice)**
 
-| ID | Name      | Type                        | \#    | Description                              |
-|----|-----------|-----------------------------|-------|------------------------------------------|
-| 1  | **attrs** | PostureAttributeName unique | 1..\* | List of posture attribute names to query |
+| ID | Name      | Type                 | \# | Description |
+|----|-----------|----------------------|----|-------------|
+| 1  | **attrs** | Attribute-Specifiers | 1  |             |
+| 2  | **sbom**  | SBOM-Specifiers      | 1  |             |
+
+Usage Requirements: TBD
+
+**Type: Attribute-Specifiers (Map{1..\*})**
+
+| ID | Name             | Type           | \#   | Description |
+|----|------------------|----------------|------|-------------|
+| 1  | **os_version**   | Boolean        | 0..1 |             |
+| 2  | **password_min** | Boolean        | 0..1 |             |
+| 3  | **file**         | FileSpecifiers | 0..1 |             |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Specifiers (Map)**
+
+| ID | Name        | Type                               | \# | Description |
+|----|-------------|------------------------------------|----|-------------|
+| 1  | **type**    | ArrayOf(Enum[SBOM-Info]) unique    | 1  |             |
+| 2  | **content** | ArrayOf(Enum[SBOM-Content]) unique | 1  |             |
 
 Usage Requirements: TBD
 
@@ -520,27 +539,17 @@ the `pac` namespace identifier.
 
 #### Table 2.1.3-1 Common Command Arguments Applicable to PAC
 
-**Type: Args (Enumerated)**
+**Type: Args (Map{1..\*})**
 
-| ID | Name | Type | # | Description |
-| ---: | :--- | :--- | ---: | :--- |
-| 1 | **start_time** | Date-Time | 0..1 | The specific date/time to initiate the Command |
-| 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Command |
-| 3 | **duration** | Duration | 0..1 | The length of time for an Command to be in effect |
-| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Command: `none`, `ack`, `status`, `complete`. |
-| 1035 | **pac/**               |             |
-
-
-#### Table 2.1.3-2 Command Arguments Unique to PAC
-
-**Type: AP-Args (Map{1..\*})**
-
-| ID | Name    | Type   | \#   | Description              |
-|----|---------|--------|------|--------------------------|
-| 1  | **foo** | String | 0..1 | Delete from Args if none |
+| ID   | Name                   | Type          | \#   | Description                                                                |
+|------|------------------------|---------------|------|----------------------------------------------------------------------------|
+| 1    | **start_time**         | Date-Time     | 0..1 | The specific date/time to initiate the Command |
+| 2    | **stop_time**          | Date-Time     | 0..1 | The specific date/time to terminate the Command |
+| 3    | **duration**           | Duration      | 0..1 | The length of time for an Command to be in effect |
+| 4    | **response_requested** | Response-Type | 0..1 | The type of Response required for the Command: none, ack, status, complete |
 
 
-Usage Requirements: TBD
+There are no command arguments unique to PAC.
 
 #### 2.1.3.1 Data Type Definitions
 
@@ -562,6 +571,8 @@ attribute collection. Table 2.1.4-1 lists the PAC Actuator.
 | 1035 | **pac/** |             |
 
 
+
+
 ### 2.1.5 Actuator Specifiers
 
 The presence of one or more Specifiers further refine which
@@ -573,11 +584,12 @@ namespace identifier.
 
 #### Table 2.1.5-1 PAC Actuator Specifiers
 
-**Type: AP-Specifiers (Map)**
+**Type: AP-Specifiers$pac (Map)**
 
 | ID | Name    | Type   | \#   | Description                  |
 |----|---------|--------|------|------------------------------|
 | 1  | **foo** | String | 0..1 | Delete from Actuator if none |
+
 
 
 ## 2.2 OpenC2 Response Components
@@ -602,13 +614,14 @@ applicable to PAC.
 
 **Type: Results (Enumerated)**
 
-| ID | Name | Type | # | Description |
-| ---: | :--- | :--- | ---: | :--- |
-| 1 | **versions** | Version unique | 0..* | List of OpenC2 language versions supported by this Actuator |
-| 2 | **profiles** | ArrayOf(Nsid) | 0..1 | List of profiles supported by this Actuator |
-| 3 | **pairs** | Action-Targets | 0..1 | List of targets applicable to each supported Action |
-| 4 | **rate_limit** | Number{0..*} | 0..1 | Maximum number of requests per minute supported by design or policy |
-| 1035 | **pac/** | pac:AP-Results | 0..1 |
+| ID   | Item           | Description |
+|------|----------------|-------------|
+| 1    | **versions**   | List of OpenC2 language versions supported by this Actuator |
+| 2    | **profiles**   | List of profiles supported by this Actuator |
+| 3    | **pairs**      | DEPRECATED: targets applicable to each supported Action |
+| 4    | **rate_limit** | Maximum number of requests per minute supported by design or policy |
+| 1035 | **pac/**       | PAC-defined results |
+
 
 
 The list of common Response properties is extended to include the
@@ -629,27 +642,41 @@ referenced with the `pac` namespace.
 
 **Type: AP-Results (Map{1..\*})**
 
-| ID | Name           | Type       | \# | Description |
-|----|----------------|------------|----|-------------|
-| 1  | **os_version** | OS-Version | 1  |             |
-| 2  | **sbom**       | SBOM       | 1  |             |
+| ID | Name      | Type              | \#   | Description |
+|----|-----------|-------------------|------|-------------|
+| 1  | **attrs** | PostureAttributes | 0..1 |             |
+| 2  | **sbom**  | SBOM-Info         | 0..1 |             |
 
 
 #### 2.2.1.1 Data Type Definitions
 
+**Type: PostureAttributes (Map{1..\*})**
+
+| ID | Name             | Type       | \#   | Description |
+|----|------------------|------------|------|-------------|
+| 1  | **os_version**   | OS-Version | 0..1 |             |
+| 2  | **password_min** | Integer    | 0..1 |             |
+| 3  | **file**         | File       | 0..1 |             |
+
+
+
 **Type: OS-Version (Record)**
 
-| ID | Name              | Type         | \#    | Description                          |
-|----|-------------------|--------------|-------|--------------------------------------|
-| 1  | **name**          | String       | 1     | Distribution or product name         |
-| 2  | **version**       | String       | 1     | Suitable for presentation OS version |
-| 3  | **major**         | Integer      | 0..1  | Major release version                |
-| 4  | **patch**         | Integer      | 0..1  | Patch release                        |
-| 5  | **build**         | String       | 0..1  | Build-specific or variant string     |
-| 6  | **platform**      | String       | 0..1  | OS Platform or ID                    |
-| 7  | **platform_like** | String       | 0..\* | Closely-related platforms            |
-| 8  | **arch**          | OS-Arch      | 0..1  | OS Architecture                      |
-| 9  | **install_date**  | ls:Date-Time | 0..1  | Install date of the OS               |
+| ID | Name                   | Type    | \#   | Description                          |
+|----|------------------------|---------|------|--------------------------------------|
+| 1  | **name**               | String  | 1    | Distribution or product name         |
+| 2  | **version**            | String  | 1    | Suitable for presentation OS version |
+| 3  | **major**              | Integer | 1    | Major release version                |
+| 4  | **minor**              | Integer | 1    | Minor release version                |
+| 5  | **patch**              | Integer | 1    | Patch release                        |
+| 6  | **build**              | String  | 1    | Build-specific or variant string     |
+| 7  | **platform**           | String  | 1    | OS Platform or ID                    |
+| 8  | **platform_like**      | String  | 1    | Closely-related platform             |
+| 9  | **codename**           | String  | 1    | OS Release codename                  |
+| 10 | **arch**               | OS-Arch | 1    | OS Architecture                      |
+| 11 | **install_date**       | Integer | 0..1 | Install date of the OS (seconds)     |
+| 12 | **pid_with_namespace** | String  | 0..1 |                                      |
+| 13 | **mount_namespace_id** | String  | 0..1 |                                      |
 
 
 Usage Requirements: TBD
@@ -663,33 +690,50 @@ Usage Requirements: TBD
 | 3  | **x86_32** |             |
 | 4  | **x86_64** |             |
 
+Usage Requirements: TBD
+
+**Type: FileSpecifiers (Map{1..\*})**
+
+| ID | Name     | Type      | \#   | Description |
+|----|----------|-----------|------|-------------|
+| 1  | **path** | String    | 0..1 |             |
+| 2  | **hash** | ls:Hashes | 0..1 |             |
 
 Usage Requirements: TBD
 
-**Type: SBOM (Choice)**
+**Type: File (Record)**
 
-| ID | Name        | Type          | \# | Description                              |
-|----|-------------|---------------|----|------------------------------------------|
-| 1  | **uri**     | ls:URI        | 1  | Unique identifier or locator of the SBOM |
-| 2  | **summary** | SBOM-Elements | 1  | NTIA Minimumum Elements of an SBOM       |
-| 3  | **content** | SBOM-Content  | 1  | SBOM structured data                     |
-| 4  | **blob**    | SBOM-Blob     | 1  | Uninterpreted SBOM bytes                 |
+| ID | Name     | Type   | \# | Description |
+|----|----------|--------|----|-------------|
+| 1  | **data** | Binary | 1  |             |
+
+Usage Requirements: TBD
+
+**Type: SBOM-Info (Map{1..\*})**
+
+| ID | Name        | Type          | \#   | Description                              |
+|----|-------------|---------------|------|------------------------------------------|
+| 1  | **uri**     | ls:URI        | 0..1 | Unique identifier or locator of the SBOM |
+| 2  | **summary** | SBOM-Elements | 0..1 | NTIA Minimumum Elements of an SBOM       |
+| 3  | **content** | SBOM-Content  | 0..1 | SBOM structured data                     |
+| 4  | **blob**    | SBOM-Blob     | 0..1 | Uninterpreted SBOM bytes                 |
 
 Usage Requirements: TBD
 
 **Type: SBOM-Elements (Record)**
 
-| ID | Name              | Type         | \#    | Description                                                                          |
-|----|-------------------|--------------|-------|--------------------------------------------------------------------------------------|
-| 1  | **supplier**      | String       | 1..\* | Name of entity that creates, defines, and identifies components                      |
-| 2  | **component**     | String       | 1..\* | Designation(s) assigned to a unit of software defined by the original supplier       |
-| 3  | **version**       | String       | 1     | Identifier used by supplier to specify a change from a previously identified version |
-| 4  | **component_ids** | String       | 0..\* | Other identifiers used to identify a component, or serve as a look-yp key            |
-| 5  | **dependencies**  | String       | 0..\* | Upstream component(s)                                                                |
-| 6  | **author**        | String       | 1     | Name of the entity that creates SBOM data for this component                         |
-| 7  | **timestamp**     | ls:Date-Time | 1     | Record of the date and time of the SBOM data assembly                                |
+| ID | Name              | Type     | \#    | Description                                                                          |
+|----|-------------------|----------|-------|--------------------------------------------------------------------------------------|
+| 1  | **supplier**      | String   | 1..\* | Name(s) of entity that creates, defines, and identifies components                   |
+| 2  | **component**     | String   | 1..\* | Designation(s) assigned to a unit of software defined by the original supplier       |
+| 3  | **version**       | String   | 1     | Identifier used by supplier to specify a change from a previously identified version |
+| 4  | **component_ids** | String   | 1..\* | Other identifiers used to identify a component, or serve as a look-yp key            |
+| 5  | **dependencies**  | String   | 1..\* | Upstream component(s)                                                                |
+| 6  | **author**        | String   | 1     | Name of the entity that creates SBOM data for this component                         |
+| 7  | **timestamp**     | DateTime | 1     | Record of the date and time of the SBOM data assembly                                |
 
 Usage Requirements: TBD
+
 
 **Type: SBOM-Content (Choice)**
 
@@ -701,9 +745,6 @@ Usage Requirements: TBD
 
 Usage Requirements: TBD
 
-
-
-
 **Type: SBOM-Blob (Record)**
 
 | ID | Name       | Type                           | \# | Description |
@@ -713,6 +754,9 @@ Usage Requirements: TBD
 
 Usage Requirements: TBD
 
+| Type Name    | Type Definition                                                           | Description     |
+|--------------|---------------------------------------------------------------------------|-----------------|
+| **DateTime** | String{pattern="^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z\|[\+-]\d{2}:\d{2})?)$"} | RFC-3339 format |
 
 ### 2.2.2 Response Status Codes
 
@@ -724,19 +768,20 @@ PAC.
 
 > _EDITOR'S NOTE: for now simply including all of the status codes from the LS._
 
-**_Type: Status-Code (Enumerated.ID)_**
+**Type: Status-Code (Enumerated.ID)**
 
-| ID | Description |
-| ---: | :--- |
-| 102 | **Processing** - an interim Response used to inform the Producer that the Consumer has accepted the Command but has not yet completed it. |
-| 200 | **OK** - the Command has succeeded. |
-| 400 | **Bad Request** - the Consumer cannot process the Command due to something that is perceived to be a Producer error (e.g., malformed Command syntax). |
-| 401 | **Unauthorized** - the Command Message lacks valid authentication credentials for the target resource or authorization has been refused for the submitted credentials. |
-| 403 | **Forbidden** - the Consumer understood the Command but refuses to authorize it. |
-| 404 | **Not Found** - the Consumer has not found anything matching the Command. |
-| 500 | **Internal Error** - the Consumer encountered an unexpected condition that prevented it from performing the Command. |
-| 501 | **Not Implemented** - the Consumer does not support the functionality required to perform the Command. |
-| 503 | **Service Unavailable** - the Consumer is currently unable to perform the Command due to a temporary overloading or maintenance of the Consumer. |
+| ID  | Description                                                                                                                                                           |
+|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 102 | **Processing** - an interim Response used to inform the Producer that the Consumer has accepted the Command but has not yet completed it                              |
+| 200 | **OK** - the Command has succeeded                                                                                                                                    |
+| 201 | **Created** - the Command has succeeded and a new resource has been created as a result of it                                                                         |
+| 400 | **Bad Request** - the Consumer cannot process the Command due to something that is perceived to be a Producer error (e.g., malformed Command syntax)                  |
+| 401 | **Unauthorized** - the Command Message lacks valid authentication credentials for the target resource or authorization has been refused for the submitted credentials |
+| 403 | **Forbidden** - the Consumer understood the Command but refuses to authorize it                                                                                       |
+| 404 | **Not Found** - the Consumer has not found anything matching the Command                                                                                              |
+| 500 | **Internal Error** - the Consumer encountered an unexpected condition that prevented it from performing the Command                                                   |
+| 501 | **Not Implemented** - the Consumer does not support the functionality required to perform the Command                                                                 |
+| 503 | **Service Unavailable** - the Consumer is currently unable to perform the Command due to a temporary overloading or maintenance of the Consumer                       |
 
 
 ## 2.3 OpenC2 Commands
@@ -754,8 +799,8 @@ defines a valid Command.
 | | **query**|
 |---:|:---:|
 | **features**| valid |
-| **pac/**  | valid |
-
+| **pac/attrs**  | valid |
+| **pac/sbom**  | valid |
 
 #### Table 2.3-1. Command Matrix
 
@@ -767,9 +812,9 @@ in Table 2.3-2) defines an allowable combination.
  
 #### Table 2.3-2. Command Arguments Matrix
 
-| | query features | query pac:attrs |
-| ---: | :---: | :---: |
-| response_requested | 2.3.2.1 | 2.3.2.2 |
+| | query features | query pac:attrs | query pac:sbom |
+| ---: | :---: | :---: | :---: |
+| response_requested | 2.3.2.1 | 2.3.2.2 | 2.3.2.3 |
 
 
 
@@ -808,14 +853,22 @@ Implementation of 'query features' Command, of Version 1.0 of the
 
 #### 2.3.2.2 Query pac:attrs
 
-The `query pac:os_version` Command provides a mechanism to
+The `query pac:attrs` Command provides a mechanism to
 collect the information such as name, version and other operating
 system related data according to the provided target specifiers.
-Implementation of the `query pac:os_version` Command is OPTIONAL.
-Products that choose to implement the `query pac:os_version`
-Command MUST implement the pac:os\_version Target type described
+Implementation of the `query pac:attrs` Command is OPTIONAL.
+Products that choose to implement the `query pac:attrs`
+Command MUST implement the `pac:attrs` Target type described
 in Table 2.1.2-2.
 
+#### 2.3.2.3 Query pac:sbom
+
+The `query pac:sbom` Command provides a mechanism to
+collect an SBOM from one or more devices according to the provided target specifiers.
+Implementation of the `query pac:sbom` Command is OPTIONAL.
+Products that choose to implement the `query pac:sbom`
+Command MUST implement the `pac:sbom` Target type described
+in Table 2.1.2-2.
 
 -------
 
